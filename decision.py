@@ -46,4 +46,6 @@ if __name__ == '__main__':
   trainingFileB = 'outputTestB.txt'
   trainDataA = parseA(trainingFileA)
   trainDataB = parseB(trainingFileB)
-  train(trainDataA,trainDataB)
+  rules = train(trainDataA,trainDataB)
+  for word in rules.keys():
+    print '%20s: %12s %d' %(word,rules[word]['tag'],rules[word]['count'])
