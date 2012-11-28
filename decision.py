@@ -8,14 +8,15 @@ import operator
 
 def train(trainDataA,trainDataB):
 
-  # a of rules containing a word and its tag for the decision list
+  # a list of rules containing a word and its tag for the decision list
   rules = defaultdict(lambda: defaultdict(str))
 
   # a list of word counts for the decision list
   wordCounts = defaultdict(lambda: defaultdict(int))
 
   # a list of words to ignore
-  ignoreWords = ['the','be','to','of','and','a','in','that','have','i','it','for','not','on','with']
+  ignoreWords = ['the','be','to','of','and','a','in','that','have','i','it',
+      'for','not','on','with']
 
   for dataID in trainDataB.keys():
 
@@ -25,6 +26,7 @@ def train(trainDataA,trainDataB):
     currentTweet = currentTweetData['tweet'].split()
     
     for word in currentTweet:
+      #TODO: why are we stripping out !
        word = word.lower().strip('.,?@!\"\'#*:')
        if word not in ignoreWords:
          wordCounts[word][currentTag] += 1

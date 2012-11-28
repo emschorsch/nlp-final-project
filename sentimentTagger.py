@@ -26,6 +26,30 @@ def extractData( fileName ):
   f.close()
   return trainData
 
+def buildFeaturesProb( data ):
+  probDict = {}
+  featCounts = featureCounts( data )
+  for feat in featureCounts.keys():
+    for sentim in featureCounts[feat].keys():
+      prob = featCounts[feat][sentim] / float( featCounts[feat]['tot'] )
+      probDict[(feat, sentim)] = prob
+  return probDict
+
+def featureCounts( data ):
+  featCounts = {}
+  for line in data:
+    #TODO: do the indices assume we are splitting on spaces?
+    print line
+    start = int(line[2])
+    end = int(line[3])
+    for feat in line[TWEET].split()[start:end]: #+1 counts for words in range
+      if feat in featCounts:
+        featCounts[feat][line[POLAR]] = featCounts[feat].get(line[POLAR], 0) + 1
+        featCounts[feat]['tot'] = featCounts[feat].get('tot', 0) + 1
+      else:
+        featCounts[feat] = { line[POLAR] : 1, 'tot' : 1 }
+  return featCounts
+
 
 def useSentimentWordsOnly(sentimentWords,trainData):
   taggedData = []
@@ -72,7 +96,7 @@ def useRules(trainDataB,rules):
     currentTweet = trainDataB[ID]['tweet']
     pos = neg = neut = 0
     for word in currentTweet.split():
-      print type(rules[word]['tag'])
+      #print type(rules[word]['tag'])
       if rules[word]['tag'] == "positive":
         print word
         pos += 1
@@ -103,7 +127,9 @@ def main():
   trainData = extractData( TRAINFILE )
   sentimentWords = getSentimentWords('sentimentLexicon.txt')
   taggedData = useSentimentWordsOnly(sentimentWords, trainData)
+  print trainData[0]
   checkData(taggedData,trainData)
+  probDict = buildFeaturesProb( trainData )
   
   # using decision
   trainingFileA = 'outputTestA.txt'
