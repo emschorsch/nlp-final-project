@@ -29,7 +29,7 @@ def extractData( fileName ):
 
 def main():
   trainData = extractData( TRAINFILE )
-  print trainData[0][POLAR]
+  print trainData[0]
 
 
 if __name__=='__main__':
