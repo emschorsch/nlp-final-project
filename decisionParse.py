@@ -12,9 +12,9 @@ Usage parseA():
   data[SID\tUID][<index>]['polar'] 	- the tag of the phrase
   data[SID\tUID][<index>]['tweet']	- the contents of the tweet  
 '''
-
+#-----------------------------------------------------------------------------#
 from collections import defaultdict
-
+#-----------------------------------------------------------------------------#
 def parseB(filename):
   data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
   infile = open(filename, 'r')
@@ -27,7 +27,7 @@ def parseB(filename):
         data[dictID][line[2]]['tweet'] = line[4]
   infile.close()
   return data
-
+#-----------------------------------------------------------------------------#
 def parseA(filename):
   data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
   infile = open(filename, 'r')
@@ -41,7 +41,7 @@ def parseA(filename):
         data[dictID][index]['tweet'] = line[5]
   infile.close()
   return data
-
+#-----------------------------------------------------------------------------#
 if __name__ == '__main__':
   trainingFileA = 'outputTestA.txt'
   trainingFileB = 'outputTestB.txt'
@@ -68,4 +68,4 @@ if __name__ == '__main__':
       print '%s\t%s\t%s\t%s' %(ID,index,polar,tweet)
       total += len(trainingDataB[ID].keys())
   print total
-  
+#-----------------------------------------------------------------------------#

@@ -39,6 +39,4 @@ if __name__ == '__main__':
       print "data[%s][%s]['polar'] = %s" %(word,pos,data[word][pos]['polar'])
       print "data[%s][%s]['stemmed'] = %s" %(word,pos,data[word][pos]['stemmed'])
       print data[word].keys()
-      
-
 #-----------------------------------------------------------------------------#
