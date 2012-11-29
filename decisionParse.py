@@ -2,47 +2,70 @@
 Parse the Task A and Task B data from the SemEvel Competition
 
 Usage parseB(): 
-  data[SID\tUID]['subject'] 	- gives the subject to be tagged
-  data[SID\tUID]['tag'] 	- the tag of the subject
-  data[SID\tUID]['tweet']	- the contents of the tweet
+  data[SID\tUID]['subject'] 	        - gives the subjects associated with
+                                          the given ID
+  data[SID\tUID][<subject>]['polar'] 	- the tag of the subject
+  data[SID\tUID][<subject>]['tweet']    - the contents of the tweet
 
 Usage parseA():
-  data[SID\tUID]['start'] 	- the start of the phrase
-  data[SID\tUID]['end']		- the end of the phrase
-  data[SID\tUID]['tag'] 	- the tag of the phrase
-  data[SID\tUID]['tweet']	- the contents of the tweet  
+  data[SID\tUID]['index']       	- the parts of the phrase to be indexed
+  data[SID\tUID][<index>]['polar'] 	- the tag of the phrase
+  data[SID\tUID][<index>]['tweet']	- the contents of the tweet  
 '''
-
+#-----------------------------------------------------------------------------#
 from collections import defaultdict
-
+#-----------------------------------------------------------------------------#
 def parseB(filename):
-  data = defaultdict(lambda: defaultdict(str))
-  infile = open(filename,'r')
+  data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
+  infile = open(filename, 'r')
   for line in infile:
     line = line.strip().split('\t')
     if len(line) == 5:
-      dictID = line[0]+'\t'+line[1]
-      data[dictID]['subject'] = line[2]
-      data[dictID]['tag'] = line[3]
-      data[dictID]['tweet'] = line[4]
-  return data 
-
+      if line[4] != 'Not Available':
+        dictID = line[0]+'\t'+line[1]
+        data[dictID][line[2]]['tag'] = line[3]
+        data[dictID][line[2]]['tweet'] = line[4]
+  infile.close()
+  return data
+#-----------------------------------------------------------------------------#
 def parseA(filename):
-  data = defaultdict(lambda: defaultdict(str))
-  infile = open(filename,'r')
+  data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
+  infile = open(filename, 'r')
   for line in infile:
     line = line.strip().split('\t')
     if len(line) == 6:
-      dictID = line[0]+'\t'+line[1]
-      data[dictID]['start'] = line[2]
-      data[dictID]['end'] = line[3]
-      data[dictID]['tag'] = line[4]
-      data[dictID]['tweet'] = line[5]
+      if line[5] != 'Not Available':
+        dictID = line[0]+'\t'+line[1]
+        index = (line[2],line[3])
+        data[dictID][index]['tag'] = line[4]
+        data[dictID][index]['tweet'] = line[5]
+  infile.close()
   return data
-
+#-----------------------------------------------------------------------------#
 if __name__ == '__main__':
   trainingFileA = 'outputTestA.txt'
   trainingFileB = 'outputTestB.txt'
-  trainingFileA = parseA(trainingFileA)
+  trainingDataA = parseA(trainingFileA)
   trainingDataB = parseB(trainingFileB)
+  
+  total = 0
 
+  '''
+  for ID in trainingDataB.keys():
+    for subject in trainingDataB[ID].keys():
+      polar = trainingDataB[ID][subject]['polar']
+      tweet = trainingDataB[ID][subject]['tweet']
+      print '%s\t%s\t%s\t%s' %(ID,subject,polar,tweet)
+      total += len(trainingDataB[ID].keys())
+  print total 
+  
+  '''  
+
+  for ID in trainingDataA.keys():
+    for index in trainingDataA[ID].keys():
+      polar = trainingDataA[ID][index]['polar']
+      tweet = trainingDataA[ID][index]['tweet']
+      print '%s\t%s\t%s\t%s' %(ID,index,polar,tweet)
+      total += len(trainingDataB[ID].keys())
+  print total
+#-----------------------------------------------------------------------------#

@@ -2794,9 +2794,9 @@ This club stinks.I think that the Brewers may upset the apple cart and win the N
 111025991345905664	40521999	13	13	positive	PJ Harvey HAS to win, nobody deserves it more, the new album was amazing! http://t.co/pFHhh13
 111025991345905664	40521999	14	14	objective	PJ Harvey HAS to win, nobody deserves it more, the new album was amazing! http://t.co/pFHhh13
 100548271667281920	278573113	0	12	objective	http://t.co/zqMLp0Y real madrid sign a 7year old from argentina maybe the next messi!!
-109001152833662976	47147054	0	3	objective	classy RT @pwire: Boehner proposes Obama speech be on the same night as NFL opening night... http://t.co/eALW22K
-109001152833662976	47147054	4	4	neutral	classy RT @pwire: Boehner proposes Obama speech be on the same night as NFL opening night... http://t.co/eALW22K
-109001152833662976	47147054	5	16	objective	classy RT @pwire: Boehner proposes Obama speech be on the same night as NFL opening night... http://t.co/eALW22K
+109001152833662976	47147054	0	3	objective	classy RT @pwire: Boehner proposes Obama speech be on the same night as NFL opening night... http://t.co/eALW22K
+109001152833662976	47147054	4	4	neutral	classy RT @pwire: Boehner proposes Obama speech be on the same night as NFL opening night... http://t.co/eALW22K
+109001152833662976	47147054	5	16	objective	classy RT @pwire: Boehner proposes Obama speech be on the same night as NFL opening night... http://t.co/eALW22K
 100099799604396033	175610388	0	13	objective	Not Available
 100099799604396033	175610388	14	14	positive	Not Available
 100099799604396033	175610388	15	19	objective	Not Available

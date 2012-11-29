@@ -6,6 +6,9 @@ from random import *
 from math import *
 import operator
 
+
+# old code
+'''
 def train(trainDataA,trainDataB):
 
   # a list of rules containing a word and its tag for the decision list
@@ -51,3 +54,4 @@ if __name__ == '__main__':
   rules = train(trainDataA,trainDataB)
   for word in rules.keys():
     print '%20s: %12s %d' %(word,rules[word]['tag'],rules[word]['count'])
+'''
