@@ -27,4 +27,9 @@ for line in open(sys.argv[1]):
                 text = js["embedData"]["status"]["text"]
                 cache[sid] = text
                 break
-    print "\t".join(fields + [text])
+    text = text.split('\n')
+    text = " ".join(text)
+    
+    #re.sub(r'\n', ' ', text)
+    if text != "Not Available":
+      print "\t".join(fields + [text])
