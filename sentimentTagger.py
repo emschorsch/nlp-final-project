@@ -20,35 +20,36 @@ TWEET = 5 #the index of the tweet itself
 builds a list of the data based on the info in filename
 """
 def extractData( fileName ):
-  #builda the list of test words
+  #builds the list of test words
   f = open(TRAINFILE, 'r')
-  trainData = map(lambda f: f.strip('\n').split('\t'), f.readlines())
+  #lines = filter(lambda x: "Not Available" not in x, f.readlines()) 
+  trainData = map(lambda x: x.strip('\n').split('\t'), f.readlines())
   f.close()
   return trainData
 
 def buildFeaturesProb( data ):
   probDict = {}
-  featCounts = featureCounts( data )
+  featCounts, senseTotals = featureCounts( data )
   for feat in featureCounts.keys():
     for sentim in featureCounts[feat].keys():
-      prob = featCounts[feat][sentim] / float( featCounts[feat]['tot'] )
+      prob = featCounts[feat][sentim] / float( senseTotals[sentim] )
       probDict[(feat, sentim)] = prob
   return probDict
 
 def featureCounts( data ):
   featCounts = {}
+  senseTotals = {}
   for line in data:
-    #TODO: do the indices assume we are splitting on spaces?
     print line
     start = int(line[2])
     end = int(line[3])
     for feat in line[TWEET].split()[start:end]: #+1 counts for words in range
       if feat in featCounts:
-        featCounts[feat][line[POLAR]] = featCounts[feat].get(line[POLAR], 0) + 1
-        featCounts[feat]['tot'] = featCounts[feat].get('tot', 0) + 1
+        featCounts[feat][line[POLAR]] = featCounts[feat].get(line[POLAR], 0) +1
+        senseTotals[line[POLAR]] = senseTotals.get(line[POLAR], 0) + 1
       else:
-        featCounts[feat] = { line[POLAR] : 1, 'tot' : 1 }
-  return featCounts
+        featCounts[feat] = { line[POLAR] : 1 }
+  return featCounts, senseTotals
 
 
 def useSentimentWordsOnly(sentimentWords,trainData):
@@ -127,7 +128,7 @@ def main():
   trainData = extractData( TRAINFILE )
   sentimentWords = getSentimentWords('sentimentLexicon.txt')
   taggedData = useSentimentWordsOnly(sentimentWords, trainData)
-  print trainData[0]
+  print trainData
   checkData(taggedData,trainData)
   probDict = buildFeaturesProb( trainData )
   
