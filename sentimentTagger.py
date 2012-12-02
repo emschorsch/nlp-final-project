@@ -27,15 +27,9 @@ def extractData( fileName ):
   f.close()
   return trainData
 
-def buildFeaturesProb( data ):
-  probDict = {}
-  featCounts, senseTotals = featureCounts( data )
-  for feat in featureCounts.keys():
-    for sentim in featureCounts[feat].keys():
-      prob = featCounts[feat][sentim] / float( senseTotals[sentim] )
-      probDict[(feat, sentim)] = prob
-  return probDict
-
+"""
+Returns a dict of counts of sense per feature, and total #of sense
+"""
 def featureCounts( data ):
   featCounts = {}
   senseTotals = {}
@@ -51,7 +45,38 @@ def featureCounts( data ):
         featCounts[feat] = { line[POLAR] : 1 }
   return featCounts, senseTotals
 
+"""
+Returns a dict of probabilities: P(f_i | s) where keys are (f_i, s) tuples
+"""
+def buildFeaturesProb( data ):
+  probDict = {}
+  featCounts, senseTotals = featureCounts( data )
+  for feat in featureCounts.keys():
+    for sentim in featureCounts[feat].keys():
+      prob = featCounts[feat][sentim] / float( senseTotals[sentim] )
+      probDict[(feat, sentim)] = prob
+  total = sum(senseTotals.values())
+  for sentim in senseTotals.keys():
+    probDict[sentim] = senseTotals[sentim]/total
+  return probDict
 
+"""
+Returns the best guess for the "correct" sense using the naive bayes algo
+"""
+def naiveProb( data, features ):
+  probDict = buildFeaturesProb( data )
+  probList = []
+  for sense in sentiments:
+    p = 1*probDict[sentim] #multiplying prob by P(s)
+    for feat in features:
+      p*= probDict[(feat, sense)]
+    probList.append( p, sense )
+  probList.sort() #defaults to sorting on the first element
+  return probList[0]
+
+"""
+blah
+"""
 def useSentimentWordsOnly(sentimentWords,trainData):
   taggedData = []
   for instance in trainData:
