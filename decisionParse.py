@@ -43,8 +43,8 @@ def parseA(filename):
   return data
 #-----------------------------------------------------------------------------#
 if __name__ == '__main__':
-  trainingFileA = 'outputTestA.txt'
-  trainingFileB = 'outputTestB.txt'
+  trainingFileA = 'trainA.txt'
+  trainingFileB = 'trainB.txt'
   trainingDataA = parseA(trainingFileA)
   trainingDataB = parseB(trainingFileB)
   

@@ -1,14 +1,68 @@
 from decisionParse import parseB, parseA
 from sentimentWords import getSentimentWords
+from collections import defaultdict
+from checkTags import checkTagsA
 
 # ----------------------------------------------------------------- #
 
 def lexiconTag(trainA, trainB, lexicon):
-  
-  # Use Lexicon to tag data from trainA
+  '''
+  Takes in two sources of data (for A and B) and then generates tags
+  based on the number of weighted words containged within each tweet
+  '''
 
-  # Use Lexicon to tag data from trainB 
-  
+  # Dictionary of tags - usage: tags[ID][index] = tag  
+  tagsA = defaultdict(lambda: defaultdict(str))
+  tagsB = defaultdict(lambda: defaultdict(str))
+
+  # Use Lexicon to tag data from trainA
+  for ID in trainA.keys():
+    for index in trainA[ID].keys():
+      start,end = index
+      tweet = (trainA[ID][index]['tweet']).split()[int(start):int(end)]
+      pos = neg = 0
+      for word in tweet:
+        word = word.lower().strip(",!@#$%^&*./\"\'")
+
+	# determine the number of weighted words in the tweet
+        for position in lexicon[word].keys():
+          if lexicon[word][position]['polar'] == 'positive':
+            pos += 1
+          elif lexicon[word][position]['polar'] == 'negative':
+            neg += 1
+	
+      # tag the tweet
+      if pos > neg:
+        tagsA[ID][index] = 'positive'
+      elif pos < neg: 
+        tagsA[ID][index] = 'negative'
+      else:
+        tagsA[ID][index] = 'objective'
+   
+  # Use Lexicon to tag data from trainB
+  for ID in trainB.keys():
+    for subject in trainB[ID].keys():
+      tweet = (trainB[ID][subject]['tweet']).split()
+      pos = neg = 0
+      for word in tweet:
+        word = word.lower().strip(",!@#$%^&*./\"\'")
+
+	# determine the number of weighted words in the tweet
+        for position in lexicon[word].keys():
+          if lexicon[word][position]['polar'] == 'positive':
+            pos += 1
+          elif lexicon[word][position]['polar'] == 'negative':
+            neg += 1
+
+	# tag the tweet
+      if pos > neg:
+        tagsB[ID][index] = 'positive'
+      elif pos < neg: 
+        tagsB[ID][index] = 'negative'
+      else:
+        tagsB[ID][index] = 'objective'
+
+  return tagsA, tagsB
 # ----------------------------------------------------------------- #
 
 if __name__ == '__main__':
@@ -18,6 +72,10 @@ if __name__ == '__main__':
   trainA  = parseA(trainingFileA)
   trainB  = parseB(trainingFileB)
   lexicon = getSentimentWords(lexiconFile)
-  tags = lexiconTag(trainA, trainB, lexicon)
+  tagsA, tagsB = lexiconTag(trainA, trainB, lexicon)
+  checkTagsA(tagsA,trainA)
+  for ID in tagsA.keys():
+    for index in tagsA[ID].keys():
+      print tagsA[ID][index]
 
 # ----------------------------------------------------------------- #
