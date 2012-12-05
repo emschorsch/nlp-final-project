@@ -23,7 +23,7 @@ def parseB(filename):
     if len(line) == 5:
       if line[4] != 'Not Available':
         dictID = line[0]+'\t'+line[1]
-        data[dictID][line[2]]['tag'] = line[3]
+        data[dictID][line[2]]['polar'] = line[3].strip('\"')
         data[dictID][line[2]]['tweet'] = line[4]
   infile.close()
   return data
@@ -37,14 +37,14 @@ def parseA(filename):
       if line[5] != 'Not Available':
         dictID = line[0]+'\t'+line[1]
         index = (line[2],line[3])
-        data[dictID][index]['tag'] = line[4]
+        data[dictID][index]['polar'] = line[4].strip('\"')
         data[dictID][index]['tweet'] = line[5]
   infile.close()
   return data
 #-----------------------------------------------------------------------------#
 if __name__ == '__main__':
-  trainingFileA = 'outputTestA.txt'
-  trainingFileB = 'outputTestB.txt'
+  trainingFileA = 'trainA.txt'
+  trainingFileB = 'trainB.txt'
   trainingDataA = parseA(trainingFileA)
   trainingDataB = parseB(trainingFileB)
   
