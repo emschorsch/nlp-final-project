@@ -10,9 +10,10 @@ from collections import defaultdict
 from sentimentWords import getSentimentWords
 from decision import *
 from random import *
+from checkTags import checkListTags
 
 #some global values
-TRAINFILE = 'outputTestA.txt'
+TRAINFILE = 'trainA.txt'
 POLAR = 4 #the index of the polarity
 TWEET = 5 #the index of the tweet itself
 
@@ -34,7 +35,6 @@ def featureCounts( data ):
   featCounts = {}
   senseTotals = {}
   for line in data:
-    print line
     start = int(line[2])
     end = int(line[3])
     for feat in line[TWEET].split()[start:end]: #+1 counts for words in range
@@ -51,37 +51,53 @@ Returns a dict of probabilities: P(f_i | s) where keys are (f_i, s) tuples
 def buildFeaturesProb( data ):
   probDict = {}
   featCounts, senseTotals = featureCounts( data )
-  for feat in featureCounts.keys():
-    for sentim in featureCounts[feat].keys():
+  for feat in featCounts.keys():
+    for sentim in featCounts[feat].keys():
       prob = featCounts[feat][sentim] / float( senseTotals[sentim] )
       probDict[(feat, sentim)] = prob
   total = sum(senseTotals.values())
   for sentim in senseTotals.keys():
-    probDict[sentim] = senseTotals[sentim]/total
-  return probDict
+    probDict[sentim] = senseTotals[sentim]/float( total )
+  return senseTotals.keys(), probDict
 
 """
 Returns the best guess for the "correct" sense using the naive bayes algo
 """
-def naiveProb( data, features ):
-  probDict = buildFeaturesProb( data )
+def naiveProb( data, features, probDict, sentiments ):
   probList = []
   for sense in sentiments:
-    p = 1*probDict[sentim] #multiplying prob by P(s)
+    p = 1*probDict[sense] #multiplying prob by P(s)
     for feat in features:
-      p*= probDict[(feat, sense)]
-    probList.append( p, sense )
+      p *= probDict.get( (feat, sense), 1)
+    probList.append( (p, sense) )
   probList.sort() #defaults to sorting on the first element
+  #print probList
   return probList[0]
 
+"""
+Returns the best guess for each tweet segment
+"""
+def naiveBayes( data ):
+  sentim, probDict = buildFeaturesProb( data )
+  tags = []
+  for line in data:
+    start = int(line[2])
+    end = int(line[3])
+    #TODO: if start -end = 0 should we get that word???!
+    if end - start == 0:
+      tag = naiveProb(data, line[TWEET].split()[start:end], probDict, sentim)
+    else:
+      tag = naiveProb(data, line[TWEET].split()[start:end], probDict, sentim)
+    tags.append(tag)
+  return tags
 
 def main():
   trainData = extractData( TRAINFILE )
   sentimentWords = getSentimentWords('sentimentLexicon.txt')
-  taggedData = useSentimentWordsOnly(sentimentWords, trainData)
-  print trainData
-  checkData(taggedData,trainData)
-  probDict = buildFeaturesProb( trainData )
+  #checkData(taggedData,trainData)
+  tagsA = naiveBayes( trainData )
+  checkListTags(tagsA, trainData, "Task A")
+  #print tagsA[0:15] #about 10ish right out of 15
   
 if __name__=='__main__':
   main()
