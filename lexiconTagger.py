@@ -1,4 +1,4 @@
-from decisionParse import parseB, parseA
+from dataParse import parseB, parseA
 from sentimentWords import getSentimentWords
 from collections import defaultdict
 from checkTags import checkTagsA, checkTagsB
@@ -22,7 +22,7 @@ def lexiconTag(trainA, trainB, lexicon):
       tweet = (trainA[ID][index]['tweet']).split()[int(start):int(end)]
       pos = neg = 0
       for word in tweet:
-        word = word.lower().strip(",!@#$%^&*./\"\'")
+        word = word.lower().strip("-=+(),!@#$%^&*./\"\'")
 
 	# determine the number of weighted words in the tweet
         for position in lexicon[word].keys():
@@ -69,8 +69,8 @@ if __name__ == '__main__':
   trainingFileA = 'trainA.txt'
   trainingFileB = 'trainB.txt'
   lexiconFile   = 'sentimentLexicon.txt'
-  trainA  = parseA(trainingFileA)
-  trainB  = parseB(trainingFileB)
+  trainA, testA  = parseA(trainingFileA)
+  trainB, testB  = parseB(trainingFileB)
   lexicon = getSentimentWords(lexiconFile)
   tagsA, tagsB = lexiconTag(trainA, trainB, lexicon)
   checkTagsA(tagsA,trainA)

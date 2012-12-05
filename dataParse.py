@@ -13,59 +13,94 @@ Usage parseA():
   data[SID\tUID][<index>]['tweet']	- the contents of the tweet  
 '''
 #-----------------------------------------------------------------------------#
+
 from collections import defaultdict
+
 #-----------------------------------------------------------------------------#
+
+def getTotalLines(filename):
+  count = 0
+  for line in open(filename, 'r'):
+    count += 1
+  return count
+
 def parseB(filename):
+  totalLines = getTotalLines(filename)
+  count = 1
+
   data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
+  test = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
+
   infile = open(filename, 'r')
   for line in infile:
-    line = line.strip().split('\t')
-    if len(line) == 5:
-      if line[4] != 'Not Available':
-        dictID = line[0]+'\t'+line[1]
-        data[dictID][line[2]]['polar'] = line[3].strip('\"')
-        data[dictID][line[2]]['tweet'] = line[4]
+    if count < int(totalLines*.75):
+      line = line.strip().split('\t')
+      dictID = line[0]+'\t'+line[1]
+      data[dictID][line[2]]['polar'] = line[3].strip('\"')
+      data[dictID][line[2]]['tweet'] = line[4]
+    else: 
+      line = line.strip().split('\t')
+      dictID = line[0]+'\t'+line[1]
+      test[dictID][line[2]]['polar'] = line[3].strip('\"')
+      test[dictID][line[2]]['tweet'] = line[4]
+    count += 1
   infile.close()
-  return data
+  return data, test
+
 #-----------------------------------------------------------------------------#
+
 def parseA(filename):
+  totalLines = getTotalLines(filename)
+  count = 1
+
   data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
+  test = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
+
   infile = open(filename, 'r')
   for line in infile:
-    line = line.strip().split('\t')
-    if len(line) == 6:
-      if line[5] != 'Not Available':
-        dictID = line[0]+'\t'+line[1]
-        index = (line[2],line[3])
-        data[dictID][index]['polar'] = line[4].strip('\"')
-        data[dictID][index]['tweet'] = line[5]
+    if count < int(totalLines*.75):
+      line = line.strip().split('\t')
+      dictID = line[0]+'\t'+line[1]
+      index = (line[2],line[3])
+      data[dictID][index]['polar'] = line[4].strip('\"')
+      data[dictID][index]['tweet'] = line[5]
+    else:
+      line = line.strip().split('\t')
+      dictID = line[0]+'\t'+line[1]
+      index = (line[2],line[3])
+      test[dictID][index]['polar'] = line[4].strip('\"')
+      test[dictID][index]['tweet'] = line[5]
+    count += 1
   infile.close()
-  return data
+  return data, test
+
 #-----------------------------------------------------------------------------#
+
 if __name__ == '__main__':
   trainingFileA = 'trainA.txt'
   trainingFileB = 'trainB.txt'
-  trainingDataA = parseA(trainingFileA)
-  trainingDataB = parseB(trainingFileB)
+  trainingDataA, testDataA = parseA(trainingFileA)
+  trainingDataB, testDataB = parseB(trainingFileB)
   
-  total = 0
-
   '''
+  for ID in testDataB.keys():
+    for subject in testDataB[ID].keys():
+      polar = testDataB[ID][subject]['polar']
+      tweet = testDataB[ID][subject]['tweet']
+      print '%s\t%s\t%s\t%s' %(ID,subject,polar,tweet)
+  
+  
   for ID in trainingDataB.keys():
     for subject in trainingDataB[ID].keys():
       polar = trainingDataB[ID][subject]['polar']
       tweet = trainingDataB[ID][subject]['tweet']
       print '%s\t%s\t%s\t%s' %(ID,subject,polar,tweet)
-      total += len(trainingDataB[ID].keys())
-  print total 
-  
-  '''  
 
   for ID in trainingDataA.keys():
     for index in trainingDataA[ID].keys():
       polar = trainingDataA[ID][index]['polar']
       tweet = trainingDataA[ID][index]['tweet']
       print '%s\t%s\t%s\t%s' %(ID,index,polar,tweet)
-      total += len(trainingDataB[ID].keys())
-  print total
+  '''
+
 #-----------------------------------------------------------------------------#

@@ -4,20 +4,6 @@ from collections import defaultdict
 from operator import itemgetter
 # ----------------------------------------------------------------- #
 
-'''
-def getScores(scores,mfp):
-  alpha = 0.1
-  for word in mfp.keys():
-    total = 0.0
-    for polar in mfp[word].keys():
-      total += mfp[word][polar]
-    for polar in mfp[word].keys():
-      currentScore = log((mfp[word][polar]+alpha)/(total+alpha))
-      if currentScore >= scores[word]['score']:
-        scores[word]['score'] = currentScore
-        scores[word]['polar'] = polar
-'''
-
 def getScores(scores,mfp):
   alpha = 0.1
   for word in mfp.keys():
@@ -68,7 +54,6 @@ def decisionList(trainA):
   
   for item in scoresSort:
     print 'Word(s): %15s\tPolarity: %s' %(item[0],item[1])
-    
 
 # ----------------------------------------------------------------- #      
 
