@@ -1,4 +1,5 @@
-POLAR = 4 #the index of the polarity
+POLARA = 4 #the index of the polarity
+POLARB = 3 #index of polarity in task B
 
 # ----------------------------------------------------------------- #
 
@@ -86,7 +87,7 @@ def checkTagsB(tagsB,testB):
 # ----------------------------------------------------------------- #
 
 
-def checkListTags(tagsA,testA,task):
+def checkListTags(tagsA, testA, task = True):
   '''
   Takes in test data in list form and a list of guessed tags for Task task.
   then determines the correctness of the tags, counting true and
@@ -96,10 +97,15 @@ def checkListTags(tagsA,testA,task):
   TPos = TNeg = TObj = TNeut = FPos = FNeg = FObj = FNeut = 0.0
   correct = total = 0.0
 
+  polarity = 0
+  if task == True:
+    polarity = POLARA
+  else:
+    polarity = POLARB
   for i in xrange(0,len(testA)):
       # Check if guess is corerct
-      polar = testA[i][POLAR]
-      guess = tagsA[i][1]
+      polar = testA[i][polarity].strip("\"")
+      guess = tagsA[i][1].strip("\"")
       if guess == polar:
         correct += 1
 
@@ -116,8 +122,12 @@ def checkListTags(tagsA,testA,task):
 
       total += 1
 
-  print '%s Percent Correct: %.2f (%.0f/%.0f)' \
-      %(task, correct/total, correct, total)
+  if task == True:
+    print 'TaskA Percent Correct: %.2f (%.0f/%.0f)' \
+        %(correct/total, correct, total)
+  else:
+    print 'TaskB Percent Correct: %.2f (%.0f/%.0f)' \
+        %(correct/total, correct, total)
   print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
   print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
   print "True Neut: %d\tFalse Neut: %d" %(TNeut,FNeut)
