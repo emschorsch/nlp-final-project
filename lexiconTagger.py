@@ -1,7 +1,7 @@
 from decisionParse import parseB, parseA
 from sentimentWords import getSentimentWords
 from collections import defaultdict
-from checkTags import checkTagsA
+from checkTags import checkTagsA, checkTagsB
 
 # ----------------------------------------------------------------- #
 
@@ -56,12 +56,12 @@ def lexiconTag(trainA, trainB, lexicon):
 
       # tag the tweet
       if pos > neg:
-        tagsB[ID][index] = 'positive'
+        tagsB[ID][subject] = 'positive'
       elif pos < neg: 
-        tagsB[ID][index] = 'negative'
+        tagsB[ID][subject] = 'negative'
       else:
-        tagsB[ID][index] = 'objective'
-
+        tagsB[ID][subject] = 'objective'
+  
   return tagsA, tagsB
 # ----------------------------------------------------------------- #
 
@@ -74,8 +74,6 @@ if __name__ == '__main__':
   lexicon = getSentimentWords(lexiconFile)
   tagsA, tagsB = lexiconTag(trainA, trainB, lexicon)
   checkTagsA(tagsA,trainA)
-  for ID in tagsA.keys():
-    for index in tagsA[ID].keys():
-      print tagsA[ID][index]
+  checkTagsB(tagsB,trainB)
 
 # ----------------------------------------------------------------- #
