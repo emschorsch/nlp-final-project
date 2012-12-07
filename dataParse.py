@@ -13,7 +13,7 @@ Usage parseA():
   data[SID\tUID][<index>]['tweet']	- the contents of the tweet  
 '''
 #-----------------------------------------------------------------------------#
-
+PERCENT = .75
 from collections import defaultdict
 
 #-----------------------------------------------------------------------------#
@@ -33,7 +33,7 @@ def parseB(filename):
 
   infile = open(filename, 'r')
   for line in infile:
-    if count < int(totalLines*.75):
+    if count < int(totalLines*PERCENT):
       line = line.strip().split('\t')
       dictID = line[0]+'\t'+line[1]
       data[dictID][line[2]]['polar'] = line[3].strip('\"')
