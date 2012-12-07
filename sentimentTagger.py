@@ -8,7 +8,7 @@ tweet.
 """
 from collections import defaultdict
 from sentimentWords import getSentimentWords
-from decision import *
+#from decision import *
 from random import *
 from checkTags import checkListTags
 import sys
