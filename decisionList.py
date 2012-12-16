@@ -3,7 +3,7 @@ from math import log
 from dataParse import parseA, parseB
 from collections import defaultdict
 from operator import itemgetter
-from checkTags import checkTagsB
+from checkTags import checkTagsB, checkTagsA
 TWEET = 5
 # ----------------------------------------------------------------- #
 
@@ -24,30 +24,11 @@ def getScores(scores,mfp):
 
 # ----------------------------------------------------------------- #
 
-def getTags(rules,test):
+def getTags(rules,test,mfs):
   
-  '''
-  total = correct = 0.0
-  for ID in test.keys():
-    for index in test[ID].keys():
-      currentPolar = test[ID][index]['polar']
-      currentTweet = test[ID][index]['tweet']
-      for ruleSet in rules:
-        rule,polar,score = ruleSet[0],ruleSet[1],ruleSet[2]
-        if rule in currentTweet and score > 0:
-          if polar ==  currentPolar: 
-            correct += 1
-            break
-        else:
-          if 'positive' == currentPolar: 
-            correct += 1
-            break
-      total += 1
-  print '\tDecision List: Percent Correct:  %f (%.0f/%.0f)' \
-      %(correct/total, correct, total)
-  '''
   tags = defaultdict(lambda: defaultdict(str))
-  
+  pos = neg = obj = neut = 0  
+
   for ID in test.keys():
     for index in test[ID].keys():
       currentTweet = test[ID][index]['tweet'].split()
@@ -63,29 +44,46 @@ def getTags(rules,test):
           taggedFlag = True
           break
       if not taggedFlag:
-        tags[ID][index] = 'positive'
+        tags[ID][index] = mfs
   return tags
 
 # ----------------------------------------------------------------- #
 
 def getUnigrams(train):
-  mfp = defaultdict(lambda: defaultdict(int))  
+  mfp = defaultdict(lambda: defaultdict(int))
+  pos = neg = obj = neut = 0
+
   for ID in train.keys():
     for subj in train[ID].keys():
+      if train[ID][subj]['polar'] == 'positive':  pos  += 1
+      if train[ID][subj]['polar'] == 'negative':  neg  += 1
+      if train[ID][subj]['polar'] == 'neutral':   neut += 1
+      if train[ID][subj]['polar'] == 'objective': obj  += 1
       tweet = train[ID][subj]['tweet'].split()
       for word in tweet:
         word1 = word.lower().strip('\'\"!@#$%^&*(),.?<>;:-')
         polar = train[ID][subj]['polar']
         mfp[word1][polar] += 1
         mfp[word1]['count'] += 1
-  return mfp
+  
+  if pos > neg and pos > neut and pos > obj: mfs = 'positive'
+  elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
+  elif neut > neg and neut > pos and neut > obj: mfs = 'neutral'
+  elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
+  return mfp, mfs
 
 # ----------------------------------------------------------------- #
 
 def getBigrams(train):
   mfp = defaultdict(lambda: defaultdict(int))  
+  pos = neg = obj = neut = 0
+  
   for ID in train.keys():
     for subj in train[ID].keys():
+      if train[ID][subj]['polar'] == 'positive':  pos  += 1
+      if train[ID][subj]['polar'] == 'negative':  neg  += 1
+      if train[ID][subj]['polar'] == 'neutral':   neut += 1
+      if train[ID][subj]['polar'] == 'objective': obj  += 1
       tweet = train[ID][subj]['tweet'].split()
       for i in range(1,len(tweet)):
         w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
@@ -94,7 +92,12 @@ def getBigrams(train):
         polar = train[ID][subj]['polar']
         mfp[bigram][polar] += 1
         mfp[bigram]['count'] += 1
-  return mfp
+
+  if pos > neg and pos > neut and pos > obj: mfs = 'positive'
+  elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
+  elif neut > neg and neut > pos and neut > obj: mfs = 'neutral'
+  elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
+  return mfp, mfs
 
 # ----------------------------------------------------------------- #
 
@@ -102,6 +105,10 @@ def unigramsBigrams(train):
   mfp = defaultdict(lambda: defaultdict(int))  
   for ID in train.keys():
     for subj in train[ID].keys():
+      if train[ID][subj]['polar'] == 'positive':  pos  += 1
+      if train[ID][subj]['polar'] == 'negative':  neg  += 1
+      if train[ID][subj]['polar'] == 'neutral':   neut += 1
+      if train[ID][subj]['polar'] == 'objective': obj  += 1
       tweet = train[ID][subj]['tweet'].split()
       for i in range(1,len(tweet)):
         w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
@@ -115,7 +122,12 @@ def unigramsBigrams(train):
         polar = train[ID][subj]['polar']
         mfp[word1][polar] += 1
         mfp[word1]['count'] += 1
-  return mfp
+
+  if pos > neg and pos > neut and pos > obj: mfs = 'positive'
+  elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
+  elif neut > neg and neut > pos and neut > obj: mfs = 'neutral'
+  elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
+  return mfp, mfs
 
 
 # ----------------------------------------------------------------- #
@@ -124,9 +136,10 @@ def decisionList(train,test):
   scores = defaultdict(lambda: defaultdict(int))
 
   # get counts of the mfp (most frequent polarity)
-  mfp = getUnigrams(train)
-  #mfp = getBigrams(train)
-  #mfp = unigramsBigrams(train)
+  mfp, mfs = getUnigrams(train)
+  #mfp, mfs = getBigrams(train)
+  #mfp, mfs = unigramsBigrams(train)
+  print mfs
   
   # get the highest score for each unigram and its associated polarity
   getScores(scores,mfp)
@@ -135,18 +148,27 @@ def decisionList(train,test):
     scoresSort.append((word, scores[word]['polar'], scores[word]['score']))
   scoresSort = sorted(scoresSort, key=itemgetter(2), reverse = True)
   
-  for item in scoresSort[:50]:
-    print "Word: %20s  Polar: %10s Score:%0.2f" %(item[0],item[1],item[2])
+  #for item in scoresSort[:50]:
+    #print "Word: %20s  Polar: %10s Score:%0.2f" %(item[0],item[1],item[2])
 
-  tags = getTags(scoresSort,test)
+  tags = getTags(scoresSort,test,mfs)
   return tags
   
 # ----------------------------------------------------------------- #      
 
 if __name__ == '__main__':
-  trainingFile = 'trainA.txt'
-  train, test = parseA(trainingFile)
-  tags = decisionList(train,test)
-  checkTagsB(tags,test)
+  # file names
+  trainingFileA = 'trainA.txt'
+  trainingFileB = 'trainB.txt'
+
+  # parse training and testing data
+  trainA, testA  = parseA(trainingFileA)
+  trainB, testB  = parseB(trainingFileB)
+  
+  # decision list
+  tagsA = decisionList(trainA,testA)
+  tagsB = decisionList(trainB,testB)
+  checkTagsA(tagsA,testA)
+  checkTagsB(tagsB,testB)
 
 # ----------------------------------------------------------------- #
