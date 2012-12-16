@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from math import log
 from dataParse import parseA, parseB
 from collections import defaultdict

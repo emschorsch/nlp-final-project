@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 Parse the Task A and Task B data from the SemEvel Competition
 
@@ -13,9 +14,9 @@ Usage parseA():
   data[SID\tUID][<index>]['tweet']	- the contents of the tweet  
 '''
 #-----------------------------------------------------------------------------#
-PERCENT = .75
+PERCENTTRAIN = .2
+PERCENTTEST  = .1
 from collections import defaultdict
-
 #-----------------------------------------------------------------------------#
 
 def getTotalLines(filename):
@@ -23,6 +24,8 @@ def getTotalLines(filename):
   for line in open(filename, 'r'):
     count += 1
   return count
+
+#-----------------------------------------------------------------------------#
 
 def parseB(filename):
   totalLines = getTotalLines(filename)
@@ -33,12 +36,12 @@ def parseB(filename):
 
   infile = open(filename, 'r')
   for line in infile:
-    if count < int(totalLines*PERCENT):
+    if count < int(totalLines*PERCENTTRAIN):
       line = line.strip().split('\t')
       dictID = line[0]+'\t'+line[1]
       data[dictID][line[2]]['polar'] = line[3].strip('\"')
       data[dictID][line[2]]['tweet'] = line[4]
-    else: 
+    elif count >= int(totalLines*(1-PERCENTTEST)): 
       line = line.strip().split('\t')
       dictID = line[0]+'\t'+line[1]
       test[dictID][line[2]]['polar'] = line[3].strip('\"')
@@ -58,13 +61,13 @@ def parseA(filename):
 
   infile = open(filename, 'r')
   for line in infile:
-    if count < int(totalLines*.75):
+    if count < int(totalLines*PERCENTTRAIN):
       line = line.strip().split('\t')
       dictID = line[0]+'\t'+line[1]
       index = (line[2],line[3])
       data[dictID][index]['polar'] = line[4].strip('\"')
       data[dictID][index]['tweet'] = line[5]
-    else:
+    elif count >= int(totalLines*(1-PERCENTTEST)):
       line = line.strip().split('\t')
       dictID = line[0]+'\t'+line[1]
       index = (line[2],line[3])
@@ -88,7 +91,6 @@ if __name__ == '__main__':
       polar = testDataB[ID][subject]['polar']
       tweet = testDataB[ID][subject]['tweet']
       print '%s\t%s\t%s\t%s' %(ID,subject,polar,tweet)
-  
   
   for ID in trainingDataB.keys():
     for subject in trainingDataB[ID].keys():

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 POLARA = 4 #the index of the polarity
 POLARB = 3 #index of polarity in task B
 
