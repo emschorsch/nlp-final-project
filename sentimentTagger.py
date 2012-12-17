@@ -7,7 +7,6 @@ tweet.
 2) something complicated
 """
 from collections import defaultdict
-from sentimentWords import getSentimentWords
 #from decision import *
 from random import *
 from checkTags import checkListTags
@@ -143,7 +142,7 @@ def main():
   #checkData(taggedData,trainData)
   tags = naiveBayes( trainData, testData, task )
   checkListTags(tags, testData, task)
-  print tags[0:15] #about 10ish right out of 15
+  #print tags[0:15] #about 10ish right out of 15
   
 if __name__=='__main__':
   main()

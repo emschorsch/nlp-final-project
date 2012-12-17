@@ -14,8 +14,8 @@ Usage parseA():
   data[SID\tUID][<index>]['tweet']	- the contents of the tweet  
 '''
 #-----------------------------------------------------------------------------#
-PERCENTTRAIN = .9
-PERCENTTEST  = .1
+PERCENTTRAIN = .8
+PERCENTTEST  = .2
 from collections import defaultdict
 #-----------------------------------------------------------------------------#
 

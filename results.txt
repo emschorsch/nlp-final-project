@@ -1,0 +1,168 @@
+# ---------------------------------------------------------------------- #
+For testing on .2
+[Task A] Most Frequent (objective): Percent Correct:  0.64 (307/477)
+[Task B] Most Frequent (positive): Percent Correct:  0.47 (56/120)
+
+LEXICON TAGGER
+[Task A] Percent Correct: 0.44 (210/477)
+[Task B] Percent Correct: 0.54 (65/120)
+# ---------------------------------------------------------------------- #
+
+
+Train .1 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.43 (52/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.41 (49/120)
+
+
+
+Train .2 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.45 (54/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.43 (52/120)
+
+
+
+Train .3 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.51 (61/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.49 (59/120)
+
+
+
+Train .4 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.49 (59/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.48 (58/120)
+
+
+
+Train .5 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (306/477)
+[Task B] Percent Correct: 0.52 (62/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (306/477)
+[Task B] Percent Correct: 0.50 (60/120)
+
+
+
+Train .6 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.58 (70/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.55 (66/120)
+
+
+
+Train .7 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.57 (68/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.53 (64/120)
+
+
+
+Train .8 Test .2 ---------------------------------------------------------
+
+DECISION LIST UNIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.57 (69/120)
+
+DECISION LIST BIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST TRIGRAMS
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.47 (56/120)
+
+DECISION LIST BI-UNI
+[Task A] Percent Correct: 0.64 (307/477)
+[Task B] Percent Correct: 0.54 (65/120)

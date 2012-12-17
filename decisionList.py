@@ -4,7 +4,6 @@ from dataParse import parseA, parseB
 from collections import defaultdict
 from operator import itemgetter
 from checkTags import checkTagsB, checkTagsA
-TWEET = 5
 # ----------------------------------------------------------------- #
 
 def getScores(scores,mfp):
@@ -99,10 +98,38 @@ def getBigrams(train):
   elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
   return mfp, mfs
 
+def getTrigrams(train):
+  mfp = defaultdict(lambda: defaultdict(int))  
+  pos = neg = obj = neut = 0
+  
+  for ID in train.keys():
+    for subj in train[ID].keys():
+      if train[ID][subj]['polar'] == 'positive':  pos  += 1
+      if train[ID][subj]['polar'] == 'negative':  neg  += 1
+      if train[ID][subj]['polar'] == 'neutral':   neut += 1
+      if train[ID][subj]['polar'] == 'objective': obj  += 1
+      tweet = train[ID][subj]['tweet'].split()
+      for i in range(2,len(tweet)):
+        w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+	w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+        w3 = tweet[i-2].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+        trigram = w3 + ' ' + w1 + ' ' + w2
+        polar = train[ID][subj]['polar']
+        mfp[trigram][polar] += 1
+        mfp[trigram]['count'] += 1
+
+  if pos > neg and pos > neut and pos > obj: mfs = 'positive'
+  elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
+  elif neut > neg and neut > pos and neut > obj: mfs = 'neutral'
+  elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
+  return mfp, mfs
+
 # ----------------------------------------------------------------- #
 
 def unigramsBigrams(train):
   mfp = defaultdict(lambda: defaultdict(int))  
+  pos = neg = obj = neut = 0
+  
   for ID in train.keys():
     for subj in train[ID].keys():
       if train[ID][subj]['polar'] == 'positive':  pos  += 1
@@ -136,10 +163,10 @@ def decisionList(train,test):
   scores = defaultdict(lambda: defaultdict(int))
 
   # get counts of the mfp (most frequent polarity)
-  mfp, mfs = getUnigrams(train)
+  #mfp, mfs = getUnigrams(train)
   #mfp, mfs = getBigrams(train)
-  #mfp, mfs = unigramsBigrams(train)
-  print mfs
+  #mfp, mfs = getTrigrams(train)
+  mfp, mfs = unigramsBigrams(train)
   
   # get the highest score for each unigram and its associated polarity
   getScores(scores,mfp)
@@ -166,6 +193,7 @@ if __name__ == '__main__':
   trainB, testB  = parseB(trainingFileB)
   
   # decision list
+  print '\nDECISION LIST BI-UNI'
   tagsA = decisionList(trainA,testA)
   tagsB = decisionList(trainB,testB)
   checkTagsA(tagsA,testA)

@@ -38,10 +38,10 @@ def checkTagsA(tagsA,testA):
 
   print '[Task A] Percent Correct: %.2f (%.0f/%.0f)' \
       %(correct/total, correct, total)
-  print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
-  print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
-  print "True Neut: %d\tFalse Neut: %d" %(TNeut,FNeut)
-  print "True Obj: %d\tFalse Obj: %d" %(TObj,FObj)
+  #print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
+  #print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
+  #print "True Neut: %d\tFalse Neut: %d" %(TNeut,FNeut)
+  #print "True Obj: %d\tFalse Obj: %d" %(TObj,FObj)
 
 # ----------------------------------------------------------------- #
 
@@ -80,10 +80,10 @@ def checkTagsB(tagsB,testB):
 
   print '[Task B] Percent Correct: %.2f (%.0f/%.0f)' \
       %(correct/total, correct, total)
-  print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
-  print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
-  print "True Neut: %d\tFalse Neut: %d" %(TNeut,FNeut)
-  print "True Obj: %d\tFalse Obj: %d" %(TObj,FObj)
+  #print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
+  #print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
+  #print "True Neut: %d\tFalse Neut: %d" %(TNeut,FNeut)
+  #print "True Obj: %d\tFalse Obj: %d" %(TObj,FObj)
 
 # ----------------------------------------------------------------- #
 
@@ -129,10 +129,10 @@ def checkListTags(tagsA, testA, task = True):
   else:
     print 'TaskB Percent Correct: %.2f (%.0f/%.0f)' \
         %(correct/total, correct, total)
-  print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
-  print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
-  print "True Neut: %d\tFalse Neut: %d" %(TNeut,FNeut)
-  print "True Obj: %d\tFalse Obj: %d" %(TObj,FObj)
+  #print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
+  #print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
+  #print "True Neut: %d\tFalse Neut: %d" %(TNeut,FNeut)
+  #print "True Obj: %d\tFalse Obj: %d" %(TObj,FObj)
 
 # ----------------------------------------------------------------- #
 
