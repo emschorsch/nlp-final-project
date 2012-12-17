@@ -92,7 +92,33 @@ A subjectivity lexicon was used to classify and determine the polarity of tweets
 \section{Conclusion}
 \subsection{Future Work}
 
-\section{Text Given}
+\section{Credits}
+
+This document has been adapted from the instructions for HLT-NAACL
+proceedings, which in turn was based on the formats of earlier ACL and
+EACL Conference proceedings.  Those versions were written by several
+people, including John Chen, Henry S. Thompson and Donald Walker.
+Additional elements were taken from the formatting instructions of the
+{\em International Joint Conference on Artificial Intelligence}.
+
+\section{Introduction}
+
+The following describes the formatting instructions for both the
+midterm and final project.  You are required to adhere to these
+specifications.  At submission time, you are required to provide the
+complete TeX source, including any supporting external files, as well
+as a Portable Document Format (PDF) of your report.
+
+\section{General Instructions}
+
+Manuscripts must be in two-column format.  Exceptions to the
+two-column format include the title, authors' names and complete
+addresses, which must be centered at the top of the first page, and
+any full-width figures or tables (see the guidelines in
+Subsection~\ref{ssec:first}). {\bf Type single-spaced.}  Start all
+pages directly under the top margin. See the guidelines later
+regarding formatting the first page.
+
 \subsection{Electronically-available resources}
 
 This description is provided in \LaTeX{} (\nobreak{cs65f12.tex}) along
@@ -101,6 +127,54 @@ with the \LaTeX{} style file used to format it
 (\nobreak{cs65f12.bst}) and sample bibliography file
 (\nobreak{cs65f12.bib}).  These files are all in the {\tt cs65/labs/04-05/}
 directory.
+
+\subsection{Format of Electronic Manuscript}
+\label{sect:pdf}
+
+The easiest way to turn this \LaTeX{} into a PDF, is to use the
+Makefile found (also in {\tt cs65/labs/04-05/}).  The Makefile will
+compile your file (and your bibliography file) and turn it into a PDF.
+
+Here are the basic instructions:
+\begin{itemize}
+\item {\tt make} will create a PDF file from your \LaTeX{} document.
+\item {\tt make view} will display the PDF file. 
+\item {\tt make clean} will clean up some files you might not need
+\item {\tt make cleanall} will clean up all non-source files
+\end{itemize}
+
+For reasons of uniformity, Adobe's {\bf Times Roman} font should be
+used. In \LaTeX{} this is accomplished by putting
+
+\begin{quote}
+\begin{verbatim}
+\usepackage{times}
+\usepackage{latexsym}
+\end{verbatim}
+\end{quote}
+in the preamble, as was done in this file.
+
+Print-outs of the PDF file should look like the present document,
+which conforms to the formatting requirements. If you cannot meet the
+above requirements, please contact me as soon as possible.
+
+\subsection{Layout}
+\label{ssec:layout}
+
+Format manuscripts two columns to a page, in the manner these
+instructions are formatted. The exact dimensions for a page on US-letter
+paper are:
+
+\begin{itemize}
+\item Left and right margins: 1in
+\item Top margin:1in
+\item Bottom margin: 1in
+\item Column width: 3.15in
+\item Column height: 9in
+\item Gap between columns: 0.2in
+\end{itemize}
+
+Papers should not be submitted on any other paper size. 
 
 \subsection{The First Page}
 \label{ssec:first}
@@ -196,5 +270,6 @@ tables below the body, using 11 point text.
 
 \bibliographystyle{cs65f12}
 \bibliography{cs65f12}
+
 
 \end{document}

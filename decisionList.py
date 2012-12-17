@@ -7,7 +7,7 @@ from checkTags import checkTagsB, checkTagsA
 # ----------------------------------------------------------------- #
 
 def getScores(scores,mfp):
-  alpha = 0.1
+  alpha = 1
   for word in mfp.keys():
     wordScores = []
     total = mfp[word]['count']
@@ -164,9 +164,9 @@ def decisionList(train,test):
 
   # get counts of the mfp (most frequent polarity)
   #mfp, mfs = getUnigrams(train)
-  #mfp, mfs = getBigrams(train)
+  mfp, mfs = getBigrams(train)
   #mfp, mfs = getTrigrams(train)
-  mfp, mfs = unigramsBigrams(train)
+  #mfp, mfs = unigramsBigrams(train)
   
   # get the highest score for each unigram and its associated polarity
   getScores(scores,mfp)
@@ -193,7 +193,7 @@ if __name__ == '__main__':
   trainB, testB  = parseB(trainingFileB)
   
   # decision list
-  print '\nDECISION LIST BI-UNI'
+  print '\nDECISION LIST'
   tagsA = decisionList(trainA,testA)
   tagsB = decisionList(trainB,testB)
   checkTagsA(tagsA,testA)
