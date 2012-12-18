@@ -32,17 +32,37 @@ def extractData( fileName ):
   return trainData
 
 """
+returns a list of all the n-grams in the text
+"""
+def ngramList( text, n ):
+  ngrams = []
+  words = text.split()
+  for i in xrange(0,len(words) - n + 1):
+    ngrams.append(" ".join(words[i:i+n]))
+  return ngrams
+
+"""
+returns a list of all the n-grams up to k in the text
+"""
+def allGrams( text, k):
+  ngrams = []
+  for i in xrange(1,k+1):
+    ngrams.extend(ngramList( text, i ))
+  return ngrams
+
+"""
 Returns a dict of counts of sense per feature, and total #of sense, for taskA
 """
-def featureCountsA( data ):
+def featureCountsA( data, n ):
   featCounts = {}
   senseTotals = {}
   for line in data:
     start = int(line[2])
     end = int(line[3]) + 1
-    for feat in line[TWEETA].split()[start:end]: #+1 counts for words in range
+    text = " ".join( line[TWEETA].split()[start:end] )
+    for feat in allGrams( text, n ): #+1 counts for words in range
       if feat in featCounts:
-        featCounts[feat][line[POLARA]] = featCounts[feat].get(line[POLARA], 0)+1
+        featCounts[feat][line[POLARA]] = featCounts[feat].get(line[POLARA],0)+1
         senseTotals[line[POLARA]] = senseTotals.get(line[POLARA], 0) + 1
       else:
         featCounts[feat] = { line[POLARA] : 1 }
@@ -51,13 +71,13 @@ def featureCountsA( data ):
 """
 Returns a dict of counts of sense per feature, and total #of sense, for taskA
 """
-def featureCountsB( data ):
+def featureCountsB( data, n ):
   featCounts = {}
   senseTotals = {}
   for line in data:
-    for feat in line[TWEETB].split(): #+1 counts for words in range
+    for feat in allGrams( line[TWEETB], n ): #+1 counts for words in range
       if feat in featCounts:
-        featCounts[feat][line[POLARB]] = featCounts[feat].get(line[POLARB], 0)+1
+        featCounts[feat][line[POLARB]] = featCounts[feat].get(line[POLARB],0)+1
         senseTotals[line[POLARB]] = senseTotals.get(line[POLARB], 0) + 1
       else:
         featCounts[feat] = { line[POLARB] : 1 }
@@ -66,12 +86,12 @@ def featureCountsB( data ):
 """
 Returns a dict of probabilities: P(f_i | s) where keys are (f_i, s) tuples
 """
-def buildFeaturesProb( data, taskA ):
+def buildFeaturesProb( data, taskA, n ):
   probDict = {}
   if taskA == True:
-    featCounts, senseTotals = featureCountsA( data )
+    featCounts, senseTotals = featureCountsA( data, n )
   else:
-    featCounts, senseTotals = featureCountsB( data )
+    featCounts, senseTotals = featureCountsB( data, n )
   for feat in featCounts.keys():
     for sentim in featCounts[feat].keys():
       prob = featCounts[feat][sentim] / float( senseTotals[sentim] )
@@ -87,30 +107,34 @@ Returns the best guess for the "correct" sense using the naive bayes algo
 def naiveProb( features, probDict, sentiments ):
   probList = []
   for sense in sentiments:
-    p = 1*probDict[sense] #multiplying prob by P(s)
+    #p = 1.0 * probDict[sense]
+    if probDict[sense] > .5:
+      p = 1.0
+    else:
+      p = 2.0 #*probDict[sense] #multiplying prob by P(s)
     for feat in features:
-      p *= probDict.get( (feat, sense), 1)
+      p *= probDict.get( (feat, sense), 0.5)
     probList.append( (p, sense) )
-  probList.sort() #defaults to sorting on the first element
-  #print probList
+  probList.sort() #defaults to sorting on the first element in tuple
   return probList[0]
 
 """
 Returns the best guess for each tweet segment
 """
-def naiveBayes( train, test, taskA = True ):
-  if taskA == True:
-    sentim, probDict = buildFeaturesProb( train, taskA )
+def naiveBayes( train, test, n, task = True ):
+  if task == True:
+    sentim, probDict = buildFeaturesProb( train, task, n )
   else:
-    sentim, probDict = buildFeaturesProb( train, taskA )
+    sentim, probDict = buildFeaturesProb( train, task, n )
   tags = []
   for line in test:
-    if taskA == True:
+    if task == True:
       start = int(line[2])
       end = int(line[3]) + 1
-      tag = naiveProb( line[TWEETA].split()[start:end], probDict, sentim)
+      text = " ".join( line[TWEETA].split()[start:end] )
+      tag = naiveProb( allGrams(text , n), probDict, sentim )
     else:
-      tag = naiveProb( line[TWEETB].split(), probDict, sentim)
+      tag = naiveProb( allGrams(line[TWEETB], n), probDict, sentim )
     tags.append(tag)
   return tags
 
@@ -140,9 +164,8 @@ def main():
   trainData, testData = crossValid(.8, trainFile)
   #sentimentWords = getSentimentWords('sentimentLexicon.txt')
   #checkData(taggedData,trainData)
-  tags = naiveBayes( trainData, testData, task )
+  tags = naiveBayes( trainData, testData, 1, task )
   checkListTags(tags, testData, task)
-  #print tags[0:15] #about 10ish right out of 15
   
 if __name__=='__main__':
   main()
