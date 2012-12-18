@@ -164,9 +164,9 @@ def decisionList(train,test):
 
   # get counts of the mfp (most frequent polarity)
   #mfp, mfs = getUnigrams(train)
-  mfp, mfs = getBigrams(train)
+  #mfp, mfs = getBigrams(train)
   #mfp, mfs = getTrigrams(train)
-  #mfp, mfs = unigramsBigrams(train)
+  mfp, mfs = unigramsBigrams(train)
   
   # get the highest score for each unigram and its associated polarity
   getScores(scores,mfp)
@@ -175,8 +175,9 @@ def decisionList(train,test):
     scoresSort.append((word, scores[word]['polar'], scores[word]['score']))
   scoresSort = sorted(scoresSort, key=itemgetter(2), reverse = True)
   
-  #for item in scoresSort[:50]:
+  #for item in scoresSort[:80]:
     #print "Word: %20s  Polar: %10s Score:%0.2f" %(item[0],item[1],item[2])
+  #print ''
 
   tags = getTags(scoresSort,test,mfs)
   return tags
