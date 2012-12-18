@@ -107,7 +107,11 @@ Returns the best guess for the "correct" sense using the naive bayes algo
 def naiveProb( features, probDict, sentiments ):
   probList = []
   for sense in sentiments:
-    p = 1.0*probDict[sense] #multiplying prob by P(s)
+    #p = 1.0 * probDict[sense]
+    if probDict[sense] > .5:
+      p = 1.0
+    else:
+      p = 2.0 #*probDict[sense] #multiplying prob by P(s)
     for feat in features:
       p *= probDict.get( (feat, sense), 0.5)
     probList.append( (p, sense) )
@@ -127,9 +131,10 @@ def naiveBayes( train, test, n, task = True ):
     if task == True:
       start = int(line[2])
       end = int(line[3]) + 1
-      tag = naiveProb( line[TWEETA].split()[start:end], probDict, sentim )
+      text = " ".join( line[TWEETA].split()[start:end] )
+      tag = naiveProb( allGrams(text , n), probDict, sentim )
     else:
-      tag = naiveProb( line[TWEETB].split(), probDict, sentim )
+      tag = naiveProb( allGrams(line[TWEETB], n), probDict, sentim )
     tags.append(tag)
   return tags
 
@@ -159,9 +164,8 @@ def main():
   trainData, testData = crossValid(.8, trainFile)
   #sentimentWords = getSentimentWords('sentimentLexicon.txt')
   #checkData(taggedData,trainData)
-  tags = naiveBayes( trainData, testData, 3, task )
+  tags = naiveBayes( trainData, testData, 1, task )
   checkListTags(tags, testData, task)
-  #print tags[0:15] #about 10ish right out of 15
   
 if __name__=='__main__':
   main()
