@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  17 DEC 2012 23:05
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  17 DEC 2012 23:36
 entering extended mode
  %&-line parsing enabled.
 **cs65f12.tex
@@ -185,15 +185,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
 
  []
 
-Missing character: There is no ï in font ptmr7t!
 
 Underfull \hbox (badness 1571) in paragraph at lines 32--33
 []\OT1/ptm/m/n/10.95 Using two Tit-ter cor-pora pro-vided by
- []
-
-
-Underfull \hbox (badness 7308) in paragraph at lines 32--33
-\OT1/ptm/m/n/10.95 SemEval-2013, we im-ple-mented and
  []
 
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
@@ -264,7 +258,7 @@ fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/f
 onts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times
 /utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on cs65f12.pdf (6 pages, 150185 bytes).
+Output written on cs65f12.pdf (6 pages, 150173 bytes).
 PDF statistics:
  66 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
