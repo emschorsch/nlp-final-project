@@ -1,38 +1,47 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citename{D\'{e}jean}1998]{dejean1998-morphemes}
-Herv\'{e} D\'{e}jean.
-\newblock 1998.
-\newblock Morphemes as necessary concept for structures discovery from untagged
-  corpora.
-\newblock In {\em Proceedings of the ACL-98 Workshop on New Methods in Language
-  Processing and Computational Natural Language Learning}.
+\bibitem[\protect\citename{Davidov \bgroup et al.\egroup
+  }2010]{davidov2010enhanced}
+D.~Davidov, O.~Tsur, and A.~Rappoport.
+\newblock 2010.
+\newblock Enhanced sentiment learning using twitter hashtags and smileys.
+\newblock In {\em Proceedings of the 23rd International Conference on
+  Computational Linguistics: Posters}, pages 241--249. Association for
+  Computational Linguistics.
 
-\bibitem[\protect\citename{Hafer and Weiss}1974]{hafer1974-word}
-Margaret~A. Hafer and Stephen~F. Weiss.
-\newblock 1974.
-\newblock Word segmentation by letter success varieties.
-\newblock {\em Information Storage and Retrieval}, 10:371--385.
+\bibitem[\protect\citename{Jansen \bgroup et al.\egroup
+  }2009]{jansen2009twitter}
+B.J. Jansen, M.~Zhang, K.~Sobel, and A.~Chowdury.
+\newblock 2009.
+\newblock Twitter power: Tweets as electronic word of mouth.
+\newblock {\em Journal of the American society for information science and
+  technology}, 60(11):2169--2188.
 
-\bibitem[\protect\citename{Hana \bgroup et al.\egroup }2006]{hana2006-tagging}
-Jirka Hana, Anna Feldman, Luiz Amaral, and Chris Brew.
-\newblock 2006.
-\newblock Tagging {P}ortuguese with a {S}panish tagger.
-\newblock In {\em Proceedings of the EACL-06 Workshop on Cross-Language
-  Knowledge Induction}.
+\bibitem[\protect\citename{Kouloumpis \bgroup et al.\egroup
+  }2011]{kouloumpis2011twitter}
+E.~Kouloumpis, T.~Wilson, and J.~Moore.
+\newblock 2011.
+\newblock Twitter sentiment analysis: The good the bad and the omg.
+\newblock In {\em Proceedings of the Fifth International AAAI Conference on
+  Weblogs and Social Media}.
 
-\bibitem[\protect\citename{Harris}1955]{harris1955-phoneme}
-Zellig Harris.
-\newblock 1955.
-\newblock From phoneme to morpheme.
-\newblock {\em Language}, 31:190--222.
+\bibitem[\protect\citename{O'Connor \bgroup et al.\egroup
+  }2010]{oconnor2010tweets}
+B.~O'Connor, R.~Balasubramanyan, B.R. Routledge, and N.A. Smith.
+\newblock 2010.
+\newblock From tweets to polls: Linking text sentiment to public opinion time
+  series.
+\newblock In {\em Proceedings of the International AAAI Conference on Weblogs
+  and Social Media}, pages 122--129.
 
-\bibitem[\protect\citename{Harris}1967]{harris1967-morpheme}
-Zellig Harris.
-\newblock 1967.
-\newblock Morpheme boundaries within words: Report on a computer test.
-\newblock In {\em Transformations and Discourse Analysis Papers}. Department of
-  Linguistics, University of Pennsylvania.
+\bibitem[\protect\citename{Pang \bgroup et al.\egroup }2002]{pang2002thumbs}
+B.~Pang, L.~Lee, and S.~Vaithyanathan.
+\newblock 2002.
+\newblock Thumbs up?: sentiment classification using machine learning
+  techniques.
+\newblock In {\em Proceedings of the ACL-02 conference on Empirical methods in
+  natural language processing-Volume 10}, pages 79--86. Association for
+  Computational Linguistics.
 
 \bibitem[\protect\citename{Wilson \bgroup et al.\egroup
   }2005]{wilson2005opinionfinder}

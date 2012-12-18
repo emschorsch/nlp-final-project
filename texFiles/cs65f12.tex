@@ -36,7 +36,9 @@ Using two Titter corpora provided by {\tt SemEval-2013}, we implemented and trai
 \section{Introduction}
 
 \section{Related Works}
+Sentiment analysis is a rapidly expanding field of natural language processing and a vast majority of these studies attempt to tackle a combination of two issues found in sentiment analysis: the identification of sentiment and then the classification of this expressed sentiment.  Many experiments attempt to classify the polarity of larger documents, specifically online reviews. For example, Pang and Lee analyze sentiment within online movie reviews~\cite{pang2002thumbs}. Using machine learning techniques, they study the effectiveness of a variety of features on sentiment detection. Their studies show that the presence of n-gram models is most useful in determining the polarity of a given review. Additionally, Pang and Lee found that the usage of parts of speech tagging and the presence of adjectives have little effect on improving the accuracy of their models and decreases this accuracy in some situations. Because of these findings, we have chosen not to experiment with features involving parts of speech. Pang and Lee also chose to experiment with word position. However, because the average tweet contains only eleven words, this is thought to have little effect on determining sentiment and is thus chosen not to be studied in our experiments~\cite{oconnor2010tweets}.
 
+Additionally, there have been many recent studies that attempt to analyze the sentiment contained within tweets and other microblogging message formats. There have been many applications of Twitter sentiment classification, ranging from using microblogging as a form of sharing consumer opinions to linking Twitter sentiment and political public opinion~\cite{jansen2009twitter,oconnor2010tweets}. Microblogging features, such as hash-tags and emoticons, have played a key role in assisting in this analysis. Davidov et al.~\shortcite{davidov2010enhanced} proposed a supervised sentiment classification framework that utilized these features. Using hand tagged hash-tags and emoticons paired with feature types such as punctuation, patterns, and n-grams, they showed that by using a k-nearest neighbors strategy tweets can be paired with one or more of their labeled hash-tags, giving them the overall sentiment of that tweet. Similarly, Kouloumpis et al.~\shortcite{kouloumpis2011twitter} used microblogging, lexicon, n-gram, and part of speech features to evaluate twitter sentiment. This study confirmed that part of speech features result in a drop in performance in sentiment analysis.  Much like our study, these experiments attempt to label tweets as not only containing sentiment, but classifying this polarity as positive, negative, or neutral. 
 \section{Methodology}
 
 \subsection{Data}
@@ -85,12 +87,13 @@ This is represented by:
 The probability of each feature given a sense is calculated in a similar manner such that:
 \[P(f_i|s) = \frac{count(f_i,s)}{count(s)}.\]
 
-Each of these equations utilizes Laplace add-one smoothing, allowing for non-zero probabilities to be assigned to words found in the test data that were not seen in the training sample.  
+Each of these equations utilizes Laplace add-one smoothing, allowing for non-zero probabilities to be assigned to words found in the test data that were not seen in the training sample. It is also important to note the using bigrams and trigrams as features in our naive Bayes classifier ignores the assumption that all
+features within a feature vector are independent from one another. However, we are assuming that each n-gram within a tweet is independent from all other n-grams also contained within the tweet.
 
 \subsubsection*{Decision List}
 A decision list classifier is equivalent to simple case statements or an extended if-else statement. Decision lists generate a set of rules or conditions, for which there is a single classification associated. These rules are generated from tagged feature vectors and then scored and ordered based on their associated scores. Similar to the approach used by Yarowsky, each feature and value pair is treated as a rule~\cite{yarowsky1994decision}. In order to generate the best rule for each possible classification, the following equation is used:
 \[\left|Log\left({\frac{P(Sense_i|f_i)}{P(\text{All other senses}|f_i)}}\right)\right|.\]
-\indent Once these rules have been generated from the given feature sets and scored, the decision list creates a list of rules similar to those seen in Table 1. The decision list will then use these rules as long as their respective scores remain greater than or equal to one. At this point, the decision list will then proceed to classify words based on the most frequent sense of all tweets in the given training corpus.
+\indent Additionally, Laplace add-one smoothing is utilized when calculating the scores. Once these rules have been generated from the given feature sets and scored, the decision list creates a list of rules similar to those seen in Table 1. The decision list will then use these rules as long as their respective scores remain greater than or equal to one. At this point, the decision list will then proceed to classify words based on the most frequent sense of all tweets in the given training corpus.
 
 \begin{table}[H]
   \begin{center}
@@ -120,190 +123,25 @@ A subjectivity lexicon was used to classify and determine the polarity of tweets
 The most frequent sense (MFS) classifier is used as a baseline for comparison in our experiments. For each corpus, the classifier counts the number of occurrences for each polarity classification and then chooses that most frequently occurring tag. The classifier then labels all test data using this classification. This method is also used in the decision list if the list has exhausted all possible rules with a score greater than or equal to one.
 
 \section{Results}
+\begin{table*}[ht]
+  \begin{center}
+  \begin{tabular}{| l || l | l | l | l |}
+  \hline
+  Features & Naive Bayes & Decision List & Subjectivity Lexicon & MFS \\ 
+  \hline \hline
+  Unigrams &  &  & 54.17\% & 46.67\% \\  \hline
+  Bigrams &  &  & N/A & 46.67\% \\   \hline
+  Trigrams &  &  & N/A & 46.67\% \\  \hline
+  \end{tabular}
+  \end{center}
+  \caption{Accuracy of classifiers labeling the sentiment of a given topic contained within a tweet. All classifiers were trained on 80\% of the second Twitter corpus and were then tested on the remaining 20\% of the data.}
+\end{table*}
 
 \section{Analysis}
 
 \section{Conclusion}
 \subsection{Future Work}
 
-\section{Credits}
-
-This document has been adapted from the instructions for HLT-NAACL
-proceedings, which in turn was based on the formats of earlier ACL and
-EACL Conference proceedings.  Those versions were written by several
-people, including John Chen, Henry S. Thompson and Donald Walker.
-Additional elements were taken from the formatting instructions of the
-{\em International Joint Conference on Artificial Intelligence}.
-
-\section{Introduction}
-
-The following describes the formatting instructions for both the
-midterm and final project.  You are required to adhere to these
-specifications.  At submission time, you are required to provide the
-complete TeX source, including any supporting external files, as well
-as a Portable Document Format (PDF) of your report.
-
-\section{General Instructions}
-
-Manuscripts must be in two-column format.  Exceptions to the
-two-column format include the title, authors' names and complete
-addresses, which must be centered at the top of the first page, and
-any full-width figures or tables (see the guidelines in
-Subsection~\ref{ssec:first}). {\bf Type single-spaced.}  Start all
-pages directly under the top margin. See the guidelines later
-regarding formatting the first page.
-
-\subsection{Electronically-available resources}
-
-This description is provided in \LaTeX{} (\nobreak{cs65f12.tex}) along
-with the \LaTeX{} style file used to format it
-(\nobreak{cs65f12.sty}).  In addition, there is a bibliography style
-(\nobreak{cs65f12.bst}) and sample bibliography file
-(\nobreak{cs65f12.bib}).  These files are all in the {\tt cs65/labs/04-05/}
-directory.
-
-\subsection{Format of Electronic Manuscript}
-\label{sect:pdf}
-
-The easiest way to turn this \LaTeX{} into a PDF, is to use the
-Makefile found (also in {\tt cs65/labs/04-05/}).  The Makefile will
-compile your file (and your bibliography file) and turn it into a PDF.
-
-Here are the basic instructions:
-\begin{itemize}
-\item {\tt make} will create a PDF file from your \LaTeX{} document.
-\item {\tt make view} will display the PDF file. 
-\item {\tt make clean} will clean up some files you might not need
-\item {\tt make cleanall} will clean up all non-source files
-\end{itemize}
-
-For reasons of uniformity, Adobe's {\bf Times Roman} font should be
-used. In \LaTeX{} this is accomplished by putting
-
-\begin{quote}
-\begin{verbatim}
-\usepackage{times}
-\usepackage{latexsym}
-\end{verbatim}
-\end{quote}
-in the preamble, as was done in this file.
-
-Print-outs of the PDF file should look like the present document,
-which conforms to the formatting requirements. If you cannot meet the
-above requirements, please contact me as soon as possible.
-
-\subsection{Layout}
-\label{ssec:layout}
-
-Format manuscripts two columns to a page, in the manner these
-instructions are formatted. The exact dimensions for a page on US-letter
-paper are:
-
-\begin{itemize}
-\item Left and right margins: 1in
-\item Top margin:1in
-\item Bottom margin: 1in
-\item Column width: 3.15in
-\item Column height: 9in
-\item Gap between columns: 0.2in
-\end{itemize}
-
-Papers should not be submitted on any other paper size. 
-
-\subsection{The First Page}
-\label{ssec:first}
-
-Center the title, author's name(s) and affiliation(s) across both
-columns. Do not use footnotes for affiliations.  Use the two-column
-format only when you begin the abstract.
-
-{\bf Title}: Place the title centered at the top of the first page, in
-a 15-point bold font. A long title should be typed on two lines
-without a blank line intervening. Approximately, put the title at 1in
-from the top of the page, followed by a blank line, then the author's
-names(s), and the affiliation on the following line.  Do not use only
-initials for given names (middle initials are allowed). The
-affiliation should contain the author's complete address, and an email
-address. Leave about 0.75in between the affiliation and the body of
-the first page.
-
-{\bf Abstract}: Type the abstract at the beginning of the first
-column.  The width of the abstract text should be smaller than the
-width of the columns for the text in the body of the paper by about
-0.25in on each side.  Center the word {\bf Abstract} in a 12 point
-bold font above the body of the abstract. The abstract should be a
-concise summary of the general thesis and conclusions of the paper.
-It should be no longer than 200 words.
-
-{\bf Text}: Begin typing the main body of the text immediately after
-the abstract, observing the two-column format as shown in 
-the present document.
-
-{\bf Indent} when starting a new paragraph. For reasons of uniformity,
-use Adobe's {\bf Times Roman} fonts, with 11 points for text and 
-subsection headings, 12 points for section headings and 15 points for
-the title. If Times Roman is unavailable, use {\bf Computer Modern
-  Roman} (\LaTeX{}'s default; see section \ref{sect:pdf} above).
-Note that the latter is about 10\% less dense than Adobe's Times Roman
-font.
-
-\subsection{Sections}
-
-{\bf Headings}: Type and label section and subsection headings in the
-style shown on the present document.  Use numbered sections (Arabic
-numerals) in order to facilitate cross references. Number subsections
-with the section number and the subsection number separated by a dot,
-in Arabic numerals. Do not number subsubsections.
-
-{\bf Citations}: Citations within the text appear in parentheses
-as~\cite{harris1955-phoneme} or, if the author's name appears in the
-text itself, as Harris~\shortcite{harris1955-phoneme}.  Append
-lowercase letters to the year in cases of ambiguities.  Treat double
-authors as in~\cite{hafer1974-word}, but write as
-in~\cite{hana2006-tagging} when more than two authors are involved.
-Collapse multiple citations as
-in~\cite{harris1967-morpheme,dejean1998-morphemes}.
-
-\textbf{References}: Gather the full set of references together under
-the heading {\bf References}; place the section before any Appendices,
-unless they contain references. Arrange the references alphabetically
-by first author, rather than by order of occurrence in the text.
-Provide as complete a citation as possible, using a consistent format.
-
-The \LaTeX{} and Bib\TeX{} style files provided roughly fit the
-American Psychological Association format, allowing regular citations, 
-short citations and multiple citations as described above.
-
-{\bf Appendices}: Appendices, if any, directly follow the text and the
-references (but see above).  Letter them in sequence and provide an
-informative title: {\bf Appendix A. Title of Appendix}.
-
-\textbf{Acknowledgement} sections should go as a last section immediately
-before the references.  Do not number the acknowledgement section.
-
-\subsection{Footnotes}
-
-{\bf Footnotes}: Put footnotes at the bottom of the page. They may
-be numbered or referred to by asterisks or other
-symbols.\footnote{This is how a footnote should appear.} Footnotes
-should be separated from the text by a line.\footnote{Note the
-line separating the footnotes from the text.}
-
-\subsection{Graphics}
-
-{\bf Illustrations}: Place figures, tables, and photographs in the
-paper near where they are first discussed, rather than at the end, if
-possible.  Wide illustrations may run across both columns. Do not use
-color illustrations as they may reproduce poorly.
-
-{\bf Captions}: Provide a caption for every illustration; number each one
-sequentially in the form:  ``Figure 1. Caption of the Figure.'' ``Table 1.
-Caption of the Table.''  Type the captions of the figures and 
-tables below the body, using 11 point text.  
-
-
 \bibliographystyle{cs65f12}
 \bibliography{cs65f12}
-
-
 \end{document}

@@ -151,7 +151,7 @@ def mfsTag(train,test,task):
         correct += 1
       total += 1
 
-  print '[Task %s] Most Frequent (%s): Percent Correct:  %0.2f (%.0f/%.0f)' \
+  print '[Task %s] Most Frequent (%s): Percent Correct:  %0.4f (%.0f/%.0f)' \
       %(task, mfs, correct/total, correct, total)
 
 # ----------------------------------------------------------------- #

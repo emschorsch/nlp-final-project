@@ -36,7 +36,7 @@ def checkTagsA(tagsA,testA):
 
       total += 1
 
-  print '[Task A] Percent Correct: %.2f (%.0f/%.0f)' \
+  print '[Task A] Percent Correct: %.4f (%.0f/%.0f)' \
       %(correct/total, correct, total)
   #print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
   #print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)
@@ -78,7 +78,7 @@ def checkTagsB(tagsB,testB):
 
       total += 1
 
-  print '[Task B] Percent Correct: %.2f (%.0f/%.0f)' \
+  print '[Task B] Percent Correct: %.4f (%.0f/%.0f)' \
       %(correct/total, correct, total)
   #print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
   #print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)

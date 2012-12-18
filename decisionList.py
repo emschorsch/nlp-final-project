@@ -84,13 +84,14 @@ def getBigrams(train):
       if train[ID][subj]['polar'] == 'neutral':   neut += 1
       if train[ID][subj]['polar'] == 'objective': obj  += 1
       tweet = train[ID][subj]['tweet'].split()
-      for i in range(1,len(tweet)):
-        w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
-	w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
-        bigram = w1 + ' ' + w2
-        polar = train[ID][subj]['polar']
-        mfp[bigram][polar] += 1
-        mfp[bigram]['count'] += 1
+      if len(tweet) >= 2: 
+        for i in range(1,len(tweet)):
+          w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+	  w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+          bigram = w1 + ' ' + w2
+          polar = train[ID][subj]['polar']
+          mfp[bigram][polar] += 1
+          mfp[bigram]['count'] += 1
 
   if pos > neg and pos > neut and pos > obj: mfs = 'positive'
   elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
@@ -109,14 +110,15 @@ def getTrigrams(train):
       if train[ID][subj]['polar'] == 'neutral':   neut += 1
       if train[ID][subj]['polar'] == 'objective': obj  += 1
       tweet = train[ID][subj]['tweet'].split()
-      for i in range(2,len(tweet)):
-        w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
-	w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
-        w3 = tweet[i-2].lower().strip('\'\"!@#$%^&*(),.?<>;:')
-        trigram = w3 + ' ' + w1 + ' ' + w2
-        polar = train[ID][subj]['polar']
-        mfp[trigram][polar] += 1
-        mfp[trigram]['count'] += 1
+      if len(tweet) >= 3:
+        for i in range(2,len(tweet)):
+          w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+	  w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+          w3 = tweet[i-2].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+          trigram = w3 + ' ' + w1 + ' ' + w2
+          polar = train[ID][subj]['polar']
+          mfp[trigram][polar] += 1
+          mfp[trigram]['count'] += 1
 
   if pos > neg and pos > neut and pos > obj: mfs = 'positive'
   elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
@@ -137,13 +139,14 @@ def unigramsBigrams(train):
       if train[ID][subj]['polar'] == 'neutral':   neut += 1
       if train[ID][subj]['polar'] == 'objective': obj  += 1
       tweet = train[ID][subj]['tweet'].split()
-      for i in range(1,len(tweet)):
-        w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
-	w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
-        bigram = w1 + ' ' + w2
-        polar = train[ID][subj]['polar']
-        mfp[bigram][polar] += 1
-        mfp[bigram]['count'] += 1
+      if len(tweet) >= 2:
+        for i in range(1,len(tweet)):
+          w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+	  w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+          bigram = w1 + ' ' + w2
+          polar = train[ID][subj]['polar']
+          mfp[bigram][polar] += 1
+          mfp[bigram]['count'] += 1
       for word in tweet:
         word1 = word.lower().strip('\'\"!@#$%^&*(),.?<>;:-')
         polar = train[ID][subj]['polar']
@@ -163,10 +166,10 @@ def decisionList(train,test):
   scores = defaultdict(lambda: defaultdict(int))
 
   # get counts of the mfp (most frequent polarity)
-  #mfp, mfs = getUnigrams(train)
+  mfp, mfs = getUnigrams(train)
   #mfp, mfs = getBigrams(train)
   #mfp, mfs = getTrigrams(train)
-  mfp, mfs = unigramsBigrams(train)
+  #mfp, mfs = unigramsBigrams(train)
   
   # get the highest score for each unigram and its associated polarity
   getScores(scores,mfp)
