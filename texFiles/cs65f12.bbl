@@ -34,4 +34,22 @@ Zellig Harris.
 \newblock In {\em Transformations and Discourse Analysis Papers}. Department of
   Linguistics, University of Pennsylvania.
 
+\bibitem[\protect\citename{Wilson \bgroup et al.\egroup
+  }2005]{wilson2005opinionfinder}
+T.~Wilson, P.~Hoffmann, S.~Somasundaran, J.~Kessler, J.~Wiebe, Y.~Choi,
+  C.~Cardie, E.~Riloff, and S.~Patwardhan.
+\newblock 2005.
+\newblock Opinionfinder: A system for subjectivity analysis.
+\newblock In {\em Proceedings of HLT/EMNLP on Interactive Demonstrations},
+  pages 34--35. Association for Computational Linguistics.
+
+\bibitem[\protect\citename{Yarowsky}1994]{yarowsky1994decision}
+D.~Yarowsky.
+\newblock 1994.
+\newblock Decision lists for lexical ambiguity resolution: Application to
+  accent restoration in spanish and french.
+\newblock In {\em Proceedings of the 32nd annual meeting on Association for
+  Computational Linguistics}, pages 88--95. Association for Computational
+  Linguistics.
+
 \end{thebibliography}

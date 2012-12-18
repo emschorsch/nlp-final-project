@@ -34,11 +34,15 @@
 \section{Methodology}
 
 \subsection{Data}
+A total of three different corpora were used in our experiments. Two of these corpora contained Twitter data that was used in the training and testing of our classifiers. The third data set comprised a sentiment lexicon which was used as a form of message classification.
+
 \subsubsection{Twitter Corpus}
+As previously stated, Twitter is a microblogging service that allows users to post short, 140-character messages called tweets.  The two Twitter corpora used in this study were comprised of such tweets and acquired from the {\tt SemEval-2013} Competition site\footnote{Available at {\tt http://www.cs.york.ac.uk/{\\}semeval-2013/task2/}} using the provided script, which downloaded the tweets from the Twitter webpage. Some of these tweets were no longer available due to a user changing their privacy settings, deleting the designated tweet, or deleting their account. These tweets were ignored and not used within our study. Additionally, some tweets contained newline characters, which were removed from the tweet during the download process. Although the data found within these tweets was formatted differently, each corpus contained tweets covering a wide range of topics including entities, products, and events. The tweets found in the corpora were also exclusively written in English. The first corpus contained full tweets and the polarity tag for a marked instance of a word or phrase within each tweet while the second corpus contained full tweets and the polarity tag of a given topic found within the content of each tweet. There were a total of 2,376 tweet segments or phrases within the first corpus and 591 full tweets in the second and the polarity tags for each corpus were limited to 'positve', 'negative', 'neutral' and 'objective'. Although some of the tweets contained within each corpus were identical, the first corpus prompted users to only look at the given segment of the tweet. Each data set was used individually as both training and testing data throughout the study. The first 80\% of each corpus was constituted as training data while the remaining 20\% of the tweets were reserved for test data. 
+
 \subsubsection{Subjectivity Lexicon}
+The third corpus used in our experiments contained subjectivity data relating to roughly 6,500 words. This lexicon was acquired from OpinionFinder, a system that performs subjectivity analysis~\cite{wilson2005opinionfinder}. Each word within this corpus has a corresponding polarity, strength of subjectivity, part-of-speech tag, stem value, and word length. For the purposes of this study, the strength of subjectivity, stem value, and word length were ignored. The polarity and part-of-speech tag were then used as means of classifying the sentiment value of tweets.
 
 \subsection{Features}
-\subsection{Additive Smoothing}
 
 \subsection{Sentiment Classifiers}
 \subsubsection{Naive Bayes}
@@ -47,39 +51,41 @@ the polarity \^{s} such that
 $\hat{s} = \underset{{s}\in{S}}{\arg\max}P(s|\vec{f})$. This sentiment 
 classifier is based upon and derived from a fundamental statistical rule 
 called Bayes' law:
-\[\hat{s} = \underset{{s}\in{S}}{\arg\max}{\frac{P(\vec{f}|s)P(s)}{P(\vec{f})}}\]
+\[\hat{s} = \underset{{s}\in{S}}{\arg\max}{\frac{P(\vec{f}|s)P(s)}{P(\vec{f})}}.\]
 Because $P(\vec{f})$ remains the same value across all possible polarities, it
 does not assist in determing the value of $\hat{s}$. We then have:
-\[\hat{s} = \underset{{s}\in{S}}{\arg\max}{P(\vec{f}|s)P(s)}\]
+\[\hat{s} = \underset{{s}\in{S}}{\arg\max}{P(\vec{f}|s)P(s)}.\]
 
 However, given a feature vector $\vec{f}$ it is very unlikely that we will see
 this exact feature again. Thus we naively assume that each $\vec{f}_i$ of 
 $\vec{f}$ is independent of all other $\vec{f}_i$. Making this assumption
 allows us to approximate $P(\vec{f}|s)$:
-\[P(\vec{f}|s)\approx{\prod_{i=1}^n}P(f_i|s)\]
+\[P(\vec{f}|s)\approx{\prod_{i=1}^n}P(f_i|s).\]
 
 Thus, in estimating the probability of the vector $\vec{f}$ by finding the
 probability of the probabilities pertaining to each individual feature within
 $\vec{f}$ given the polarity $\hat{s}$, we find the final equation for the
 Naive Bayes classifier:
-\[\hat{s}= \underset{{s}\in{S}}{\arg\max}{{\prod_{i=1}^n}P(f_i|s)}P(s)\]
+\[\hat{s}= \underset{{s}\in{S}}{\arg\max}{{\prod_{i=1}^n}P(f_i|s)}P(s).\]
 
 The maximum likelihood estimate of the probability of each possible sentiment
 polarity is calculated by taking the count of the number of times a given 
 feature occurs given the polarity over the number of times the count occurs. 
 This is represented by:
-\[P(s_i) = \frac{count(s_i,w_j)}{count(w_j)}\]
+\[P(s_i) = \frac{count(s_i,w_j)}{count(w_j)}.\]
 
-The probability of each feature is calculated in a similar manner such that:
-\[P(f_i|s) = \frac{count(f_i,s)}{count(s)}\]
+The probability of each feature given a sense is calculated in a similar manner such that:
+\[P(f_i|s) = \frac{count(f_i,s)}{count(s)}.\]
+
+Each of these equations utilizes Laplace add-one smoothing, allowing for non-zero probabilities to be assigned to words found in the test data that were not seen in the training sample.  
 
 \subsubsection{Decision List}
-A decision list classifier is equivalent to simple case statements or an extended if-else statement. Decision lists generate a set of rules or conditions, for which there is a singly classification associated. These rules are generated from tagged feature vectors and then scored and ordered based on their associated scores. Similar to the approach used by Yarowsky (CITATION), each pair of feature and value are treated as a rule. In order to generate the best rule for each possible classification, the following equation is used:
-\[\left|Log\left({\frac{P(Sense_i|f_i)}{P(All other senses|f_i)}}\right)\right|\]
+A decision list classifier is equivalent to simple case statements or an extended if-else statement. Decision lists generate a set of rules or conditions, for which there is a singly classification associated. These rules are generated from tagged feature vectors and then scored and ordered based on their associated scores. Similar to the approach used by Yarowsky, each pair of feature and value are treated as a rule~\cite{yarowsky1994decision}. In order to generate the best rule for each possible classification, the following equation is used:
+\[\left|Log\left({\frac{P(Sense_i|f_i)}{P(All other senses|f_i)}}\right)\right|.\]
 \indent Once these rules have been generated from the given feature sets and scored, the decision list creates a list of rules similar to those seen in Figure 1 (MUST CREATE FIGURE WITH EXAMPLE RULES). The decision list will then use these rules as long as their respective scores remain above zero. At this point, the decision list will proceed to classify words based on the most frequent sense of all tweets in the given corpus.  
 
 \subsubsection{Subjectivity Lexicon}
-A subjectivity lexicon was used to classify and determine the polarity of tweets. The subjectivity lexicon was acquired from OpinionFinder, a list containing roughly 6,500 words, their polarity, and the strength of their subjectivity (CITATION). This lexicon was then used to determine the polarity of each word within the given tweet or tweet segment. The strength of each word, which was labeled as either strong or weak subjectivity, was ignored for testing.
+A subjectivity lexicon was used to classify and determine the polarity of tweets. The subjectivity lexicon was acquired from OpinionFinder, a list containing roughly 6,500 words, their polarity, and the strength of their subjectivity. This lexicon was then used to determine the polarity of each word within the given tweet or tweet segment. The strength of each word, which was labeled as either strong or weak subjectivity, was ignored for testing.
 
 \indent Individual counts of the number of positive and negative words for each tweet were than kept. If a tweet or tweet segment contained more positive words than negative words, the tweet was then defined as having a positive polarity. If the tweet contained more negative words than positive words, the tweet was determined to have a negative polarity. However, if a tweet contained neither any positive words nor any negative words or if the count of positive and negative words were equal, the tweet was labeled as objective. Within the subjectivity lexicon classifier, words were not labeled as neutral.
 
