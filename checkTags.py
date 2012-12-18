@@ -124,10 +124,10 @@ def checkListTags(tagsA, testA, task = True):
       total += 1
 
   if task == True:
-    print 'TaskA Percent Correct: %.2f (%.0f/%.0f)' \
+    print 'TaskA Percent Correct: %.4f (%.0f/%.0f)' \
         %(correct/total, correct, total)
   else:
-    print 'TaskB Percent Correct: %.2f (%.0f/%.0f)' \
+    print 'TaskB Percent Correct: %.4f (%.0f/%.0f)' \
         %(correct/total, correct, total)
   #print "True Pos: %d\tFalse Pos: %d" %(TPos,FPos)
   #print "True Neg: %d\tFalse Neg: %d" %(TNeg,FNeg)

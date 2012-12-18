@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{float}
 \restylefloat{table}
+\usepackage{pgfplots}
 \setlength\titlebox{6.5cm}    % Expanding the titlebox
 
 \title{Sentiment Classification and Analysis in Twitter}
@@ -34,6 +35,16 @@ Using two Titter corpora provided by {\tt SemEval-2013}, we implemented and trai
 \end{abstract}
 
 \section{Introduction}
+To answer the question of how a given population feels about an issue it is usually necessary to conduct some kind of poll. People need to be surveyed and surveyors need to be hired to do the surveying and other laborious tasks. Ideally, instead we would be able to harvest the abundant information on the internet to find our answer. 
+
+In recent years we have seen an explosion in social media use. Facebook and Twitter are two prime examples of platforms which millions of different people use on a daily basis. These platforms are perfectly positioned to answer the kinds of questions previously addressed by polls. Since everyone from your teacher to Obama is using these social networking platforms we have access to the opinions of people from a large variety of backgrounds. We choose to focus on Twitter as it is geared exclusively towards the expression of people¿s thoughts.  
+
+Twitter is a microblogging platform which allows users to broadcast, or tweet, messages (tweets) of up to 140 characters to their followers. Since tweets must be so short they are almost always about a single topic, with usually only a single sentiment expressed. While Twitter does have a significant portion of non english speaking users, for the purposes of this paper we restrict our attention to tweets in english. One nice feature of Twitter is that tweets are labeled by hashtags. This makes it simple to search for a specific hashtag such as \#Toyota which will yield all tweets that are self-classified as relating to Toyotas. Given the enormous volume of tweets per day (340 million, 
+citation: http://blog.twitter.com/2012/03/twitter-turns-six.html) it is possible to find a sufficiently large sample of tweets about most topics, even relatively obscure ones.
+
+There remains issues with ensuring that Twitter users represent a sufficiently random population but the issue of automated sentiment extraction looms much larger. In this paper we first discuss how to capture the sentiment of the component phrases of the tweets. This is useful as a building block which can hopefully aid in deciphering the sentiment of a tweet as a whole. Naturally we then consider the tweet as a whole and the overall sentiment of the tweet with respect to the topic as defined by a hashtag. A system which could perform well on this task would be invaluable for anyone studying public opinion. This would be immediately applicable to product managers and campaign managers as well as many researchers.
+
+We found that simple features were sufficient to perform significantly above the baseline. It was interesting to see that having statistics on the prevalence of individual words among different senses was very powerful. We will discuss three different linguistic techniques we used to categorize tweets into their appropriate sense.
 
 \section{Related Works}
 Sentiment analysis is a rapidly expanding field of natural language processing and a vast majority of these studies attempt to tackle a combination of two issues found in sentiment analysis: the identification of sentiment and then the classification of this expressed sentiment.  Many experiments attempt to classify the polarity of larger documents, specifically online reviews. For example, Pang and Lee analyze sentiment within online movie reviews~\cite{pang2002thumbs}. Using machine learning techniques, they study the effectiveness of a variety of features on sentiment detection. Their studies show that the presence of n-gram models is most useful in determining the polarity of a given review. Additionally, Pang and Lee found that the usage of parts of speech tagging and the presence of adjectives have little effect on improving the accuracy of their models and decreases this accuracy in some situations. Because of these findings, we have chosen not to experiment with features involving parts of speech. Pang and Lee also chose to experiment with word position. However, because the average tweet contains only eleven words, this is thought to have little effect on determining sentiment and is thus chosen not to be studied in our experiments~\cite{oconnor2010tweets}.
@@ -129,13 +140,87 @@ The most frequent sense (MFS) classifier is used as a baseline for comparison in
   \hline
   Features & Naive Bayes & Decision List & Subjectivity Lexicon & MFS \\ 
   \hline \hline
-  Unigrams &  &  & 54.17\% & 46.67\% \\  \hline
-  Bigrams &  &  & N/A & 46.67\% \\   \hline
-  Trigrams &  &  & N/A & 46.67\% \\  \hline
+  Unigrams            & 57.14\% & 58.33\% & 54.17\% & 46.67\% \\  \hline
+  Bigrams             & 52.94\% & 46.67\% & N/A     & 46.67\% \\  \hline
+  Trigrams            & 54.62\% & 46.67\% & N/A     & 46.67\% \\  \hline
+  Bigrams \& Unigrams & 55.46\% & 57.50\% & N/A     & 46.67\% \\  \hline
   \end{tabular}
   \end{center}
   \caption{Accuracy of classifiers labeling the sentiment of a given topic contained within a tweet. All classifiers were trained on 80\% of the second Twitter corpus and were then tested on the remaining 20\% of the data.}
 \end{table*}
+
+\begin{table*}[ht]
+  \begin{center}
+  \begin{tabular}{| l || l | l | l | l |}
+  \hline
+  Features & Naive Bayes & Decision List & Subjectivity Lexicon & MFS \\ 
+  \hline \hline
+  Unigrams            & 64.71\% & 64.36\% & 44.03\% & 64.36\% \\  \hline
+  Bigrams             & 64.92\% & 64.36\% & N/A     & 64.36\% \\  \hline
+  Trigrams            & 64.92\% & 64.36\% & N/A     & 64.36\% \\  \hline
+  Bigrams \& Unigrams & 64.92\% & 64.36\% & N/A     & 64.36\% \\  \hline
+  \end{tabular}
+  \end{center}
+  \caption{Accuracy of classifiers labeling the sentiment of a given topic contained within a tweet. All classifiers were trained on 80\% of the first Twitter corpus and were then tested on the remaining 20\% of the data.}
+\end{table*}
+
+\begin{figure*}
+\begin{tikzpicture}
+  \begin{axis}[
+    xlabel=Training Size (Percent of Corpus),
+    ylabel=Accuracy,
+  ]
+  \addlegendentry{Most Freq. Sense};  
+  \addplot[color=red, mark=*] coordinates {
+    (10,46.67)
+    (20,46.67)
+    (30,46.67)
+    (40,46.67)
+    (50,46.67)
+    (60,46.67)
+    (70,46.67)
+    (80,46.67)
+  };
+  \addlegendentry{Subj. Lexicon};  
+  \addplot[color=blue, mark=x] coordinates {
+    (10,54.17)
+    (20,54.17)
+    (30,54.17)
+    (40,54.17)
+    (50,54.17)
+    (60,54.17)
+    (70,54.17)
+    (80,54.17)
+  };
+  \addlegendentry{DL: Unigrams};  
+  \addplot[color=green, mark=+] coordinates {
+    (10,45.83)
+    (20,45.83)
+    (30,52.50)
+    (40,49.17)
+    (50,52.50)
+    (60,55.83)
+    (70,57.50)
+    (80,58.33)
+  };
+  \addlegendentry{NB: Unigrams};  
+  \addplot[color=black, mark = diamond] coordinates {
+    (10,43.70)
+    (20,50.42)
+    (30,46.22)
+    (40,46.22)
+    (50,52.10)
+    (60,52.94)
+    (70,54.62)
+    (80,57.14)
+  };
+  \addplot[color=white] coordinates {
+    (10,75)
+  };
+  \end{axis}
+\end{tikzpicture}
+\end{figure*}
+
 
 \section{Analysis}
 

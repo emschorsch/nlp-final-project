@@ -145,7 +145,7 @@ def crossValid( trainFrac, trainData):
   lines = len(trainData)
   end = int(lines*trainFrac)
   train = trainData[0:end]
-  test = trainData[end:lines]
+  test = trainData[int(.8*lines):lines]
   return train, test
 
 
@@ -164,7 +164,7 @@ def main():
   trainData, testData = crossValid(.8, trainFile)
   #sentimentWords = getSentimentWords('sentimentLexicon.txt')
   #checkData(taggedData,trainData)
-  tags = naiveBayes( trainData, testData, 1, task )
+  tags = naiveBayes( trainData, testData, 3, task )
   checkListTags(tags, testData, task)
   
 if __name__=='__main__':
