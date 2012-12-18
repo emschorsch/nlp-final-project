@@ -7,6 +7,7 @@
 \usepackage{float}
 \restylefloat{table}
 \usepackage{pgfplots}
+\newcommand{\cou}{\textrm{count}}
 \setlength\titlebox{6.5cm}    % Expanding the titlebox
 
 \title{Sentiment Classification and Analysis in Twitter}
@@ -39,10 +40,9 @@ To answer the question of how a given population feels about an issue it is usua
 
 In recent years we have seen an explosion in social media use. Facebook and Twitter are two prime examples of platforms which millions of different people use on a daily basis. These platforms are perfectly positioned to answer the kinds of questions previously addressed by polls. Since everyone from your teacher to Obama is using these social networking platforms we have access to the opinions of people from a large variety of backgrounds. We choose to focus on Twitter as it is geared exclusively towards the expression of people¿s thoughts.  
 
-Twitter is a microblogging platform which allows users to broadcast, or tweet, messages (tweets) of up to 140 characters to their followers. Since tweets must be so short they are almost always about a single topic, with usually only a single sentiment expressed. While Twitter does have a significant portion of non english speaking users, for the purposes of this paper we restrict our attention to tweets in english. One nice feature of Twitter is that tweets are labeled by hashtags. This makes it simple to search for a specific hashtag such as \#Toyota which will yield all tweets that are self-classified as relating to Toyotas. Given the enormous volume of tweets per day (340 million, 
-citation: http://blog.twitter.com/2012/03/twitter-turns-six.html) it is possible to find a sufficiently large sample of tweets about most topics, even relatively obscure ones.
+Twitter is a microblogging platform which allows users to broadcast, or tweet, messages (tweets) of up to 140 characters to their followers. Since tweets must be so short they are almost always about a single topic, with usually only a single sentiment expressed. While Twitter does have a significant portion of non english speaking users, for the purposes of this paper we restrict our attention to tweets in english. One nice feature of Twitter is that tweets are labeled by hashtags. This makes it simple to search for a specific hashtag such as \#Toyota which will yield all tweets that are self-classified as relating to Toyotas. Given the enormous volume of tweets per day (340 million \footnote{{\tt http://blog.twitter.com/2012/03/twitter{\\}-turns-six.html}}) it is possible to find a sufficiently large sample of tweets about most topics, even relatively obscure ones.
 
-There remains issues with ensuring that Twitter users represent a sufficiently random population but the issue of automated sentiment extraction looms much larger. In this paper we first discuss how to capture the sentiment of the component phrases of the tweets. This is useful as a building block which can hopefully aid in deciphering the sentiment of a tweet as a whole. Naturally we then consider the tweet as a whole and the overall sentiment of the tweet with respect to the topic as defined by a hashtag. A system which could perform well on this task would be invaluable for anyone studying public opinion. This would be immediately applicable to product managers and campaign managers as well as many researchers.
+There remain issues with ensuring that Twitter users represent a sufficiently random population but the issue of automated sentiment extraction looms much larger. In this paper we first discuss how to capture the sentiment of the component phrases of the tweets. This is useful as a building block which can hopefully aid in deciphering the sentiment of a tweet as a whole. Naturally we then consider the tweet as a whole and the overall sentiment of the tweet with respect to the topic as defined by a hashtag. A system which could perform well on this task would be invaluable for anyone studying public opinion. This would be immediately applicable to product managers and campaign managers as well as many researchers.
 
 We found that simple features were sufficient to perform significantly above the baseline. It was interesting to see that having statistics on the prevalence of individual words among different senses was very powerful. We will discuss three different linguistic techniques we used to categorize tweets into their appropriate sense.
 
@@ -68,42 +68,32 @@ In order to implement the sentiment classifiers such that they can label the giv
 In order to determine the sentiment of a given tweet, three algorithms were implemented: a naive Bayes classifier, a decision list classifier, and a subjectivity lexicon classifier.
 \subsubsection*{Naive Bayes}
 Using the Naive Bayes classifier, a given feature vector $\vec{f}$ is assigned
-the polarity \^{s} such that 
-$\hat{s} = \underset{{s}\in{S}}{\arg\max}P(s|\vec{f})$. This sentiment 
-classifier is based upon and derived from a fundamental statistical rule 
-called Bayes' law:
+the polarity \^{s} returned by 
+$\hat{s} = \underset{{s}\in{S}}{\arg\max}P(s|\vec{f})$. Using Bayes rule we can rewrite this equation:
 \[\hat{s} = \underset{{s}\in{S}}{\arg\max}{\frac{P(\vec{f}|s)P(s)}{P(\vec{f})}}.\]
-Because $P(\vec{f})$ remains the same value across all possible polarities, it
-does not assist in determing the value of $\hat{s}$. We then have:
+Since $P(\vec{f})$ is constant across all polarities, it
+does not affect the choice of $\hat{s}$ and we can discard it. This leaves us with:
 \[\hat{s} = \underset{{s}\in{S}}{\arg\max}{P(\vec{f}|s)P(s)}.\]
 
-However, given a feature vector $\vec{f}$ it is very unlikely that we will see
-this exact feature again. Thus we naively assume that each $\vec{f}_i$ of 
-$\vec{f}$ is independent of all other $\vec{f}_i$. Making this assumption
-allows us to approximate $P(\vec{f}|s)$:
-\[P(\vec{f}|s)\approx{\prod_{i=1}^n}P(f_i|s).\]
+However, it is very unlikely that we will see exactly our given feature vector $\vec{f}$ with $n$ features again. Thus we naively assume that each of the features in the vector are independent of each other. Under this assumption the below equality holds:
+\[P(\vec{f}|s) = \prod_{i=1}^n P(f_i|s).\]
 
-Thus, in estimating the probability of the vector $\vec{f}$ by finding the
-product of the probabilities pertaining to each individual feature within
-$\vec{f}$ given the polarity $\hat{s}$, we find the final equation for the
-naive Bayes classifier:
-\[\hat{s}= \underset{{s}\in{S}}{\arg\max}{{\prod_{i=1}^n}P(f_i|s)}P(s).\]
+The probability of the vector $\vec{f}$ under the assumption of independence is equal to the product of the independent probability of each feature in the vector. Substituting into our previous equation we arrive at our naive Bayes classifier:
+\[\hat{s} = \underset{s \in S}{\arg\max}{{\prod_{i=1}^n}P(f_i|s)}P(s).\]
 
-The maximum likelihood estimate of the probability of each possible sentiment
-polarity is calculated by taking the count of the number of times a given 
-feature occurs given the polarity over the number of times the feature occurs. 
+The probability of ${f_i}$ which we use is the maximum likelihood estimate.This is computed by the number of times $f_i$ occurs as sense $s$ over the number of times $f_i$ occurs total. 
 This is represented by:
-\[P(s_i) = \frac{count(s_i,w_j)}{count(w_j)}.\]
+\[P(s_i) = \frac{\cou(f_i,s)}{\cou(f_i)}.\]
 
-The probability of each feature given a sense is calculated in a similar manner such that:
-\[P(f_i|s) = \frac{count(f_i,s)}{count(s)}.\]
+The probability of a specific sense $s$ is calculated in a similar manner:
+$$P(f_i|s) = \frac{\cou(s)}{\underset{s_i \in S}{\sum} \cou(s_i)}.$$
 
 Each of these equations utilizes Laplace add-one smoothing, allowing for non-zero probabilities to be assigned to words found in the test data that were not seen in the training sample. It is also important to note the using bigrams and trigrams as features in our naive Bayes classifier ignores the assumption that all
 features within a feature vector are independent from one another. However, we are assuming that each n-gram within a tweet is independent from all other n-grams also contained within the tweet.
 
 \subsubsection*{Decision List}
 A decision list classifier is equivalent to simple case statements or an extended if-else statement. Decision lists generate a set of rules or conditions, for which there is a single classification associated. These rules are generated from tagged feature vectors and then scored and ordered based on their associated scores. Similar to the approach used by Yarowsky, each feature and value pair is treated as a rule~\cite{yarowsky1994decision}. In order to generate the best rule for each possible classification, the following equation is used:
-\[\left|Log\left({\frac{P(Sense_i|f_i)}{P(\text{All other senses}|f_i)}}\right)\right|.\]
+\[\left|\log\left({\frac{P(Sense_i|f_i)}{P(\text{All other senses}|f_i)}}\right)\right|.\]
 \indent Additionally, Laplace add-one smoothing is utilized when calculating the scores. Once these rules have been generated from the given feature sets and scored, the decision list creates a list of rules similar to those seen in Table 1. The decision list will then use these rules as long as their respective scores remain greater than or equal to one. At this point, the decision list will then proceed to classify words based on the most frequent sense of all tweets in the given training corpus.
 
 \begin{table}[H]
