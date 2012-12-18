@@ -27,6 +27,10 @@
 \begin{document}
 \maketitle
 \begin{abstract}
+As the popularity of microblogging drastically increases, it is evident that there is a vast amount of opinionated data and information available to assess the general sentiment of millions of Twitter users in regards to products, events, and people. We consider the problem of classifying the overall sentiment of subjects contained within tweets and the sentiment of a marked instance of a word or phrase within a given tweet as either positive, negative, neutral, or objective. In completing these tasks, we hope to further develop a public twitter sentiment corpus.\\
+
+Using two Titter corpora provided by {\tt SemEval-2013}, we implemented and trained a naïve Bayes classifier, a decision list classifier, and a subjectivity lexicon classifier. By using a bag-of-words framework and limited training data, we are able to successfully identify the sentiment of tweets. Our data suggests that the accuracy of our models will further increase as the size of our training corpora increase, and suggests that both naive Bayes and decision list classifiers trained on n-gram feature sets become far superior to the subjectivity lexicon classifier as the size of the training corpora increases. We find that that lack of slang and abbreviated words in the subjectivity lexicon account for this decrease in performance, and we propose creating a subjectivity lexicon that contains such language for the classification of tweets. We then conclude by examining and discussing the factors that make the sentiment classification of tweets so difficult. 
+
 \end{abstract}
 
 \section{Introduction}

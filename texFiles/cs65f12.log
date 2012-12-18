@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  17 DEC 2012 22:24
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  17 DEC 2012 23:05
 entering extended mode
  %&-line parsing enabled.
 **cs65f12.tex
@@ -161,76 +161,112 @@ LaTeX Font Info:    Try loading font information for OT1+pcr on input line 28.
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+[]\OT1/ptm/m/n/10.95 As the pop-u-lar-ity of mi-croblog-ging
+ []
+
+
+Underfull \hbox (badness 1226) in paragraph at lines 30--31
+\OT1/ptm/m/n/10.95 dras-ti-cally in-creases, it is ev-i-dent that
+ []
+
+
+Underfull \hbox (badness 3375) in paragraph at lines 30--31
+\OT1/ptm/m/n/10.95 users in re-gards to prod-ucts, events,
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 30--31
+\OT1/ptm/m/n/10.95 of clas-si-fy-ing the over-all sen-ti-ment of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+
+ []
+
+Missing character: There is no ï in font ptmr7t!
+
+Underfull \hbox (badness 1571) in paragraph at lines 32--33
+[]\OT1/ptm/m/n/10.95 Using two Tit-ter cor-pora pro-vided by
+ []
+
+
+Underfull \hbox (badness 7308) in paragraph at lines 32--33
+\OT1/ptm/m/n/10.95 SemEval-2013, we im-ple-mented and
+ []
+
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 38.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 42.
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
 
 ] [2]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3690) has occurred while \output is active []
 
-
-Underfull \hbox (badness 1325) in paragraph at lines 154--160
+ [3]
+Underfull \hbox (badness 1325) in paragraph at lines 158--164
 \OT1/ptm/m/n/10.95 along with the L[]T[]X style file used to for-mat
  []
 
 
-Underfull \hbox (badness 1325) in paragraph at lines 154--160
+Underfull \hbox (badness 1325) in paragraph at lines 158--164
 \OT1/ptm/m/n/10.95 it (cs65f12.sty). In ad-di-tion, there is a bib-li-
  []
 
-[3]
-Underfull \hbox (badness 6380) in paragraph at lines 164--167
+
+Underfull \hbox (badness 6380) in paragraph at lines 168--171
 \OT1/ptm/m/n/10.95 The eas-i-est way to turn this L[]T[]X into a
  []
 
 
-Underfull \hbox (badness 4242) in paragraph at lines 164--167
+Underfull \hbox (badness 4242) in paragraph at lines 168--171
 \OT1/ptm/m/n/10.95 PDF, is to use the Make-file found (also in
  []
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 170.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 174.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 170.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 174.
 
-Underfull \hbox (badness 2662) in paragraph at lines 173--174
+Underfull \hbox (badness 2662) in paragraph at lines 177--178
 []\OT1/pcr/m/n/10.95 make cleanall \OT1/ptm/m/n/10.95 will clean up all non-
  []
 
 [4]
-Underfull \hbox (badness 3058) in paragraph at lines 269--272
+Underfull \hbox (badness 3058) in paragraph at lines 273--276
 []\OT1/ptm/m/n/10.95 The L[]T[]X and BibT[]X style files pro-vided
  []
 
-(./cs65f12.bbl) [5] (./cs65f12.aux) ) 
+(./cs65f12.bbl [5]) [6
+
+] (./cs65f12.aux) ) 
 Here is how much of TeX's memory you used:
  1377 strings out of 493911
  15862 string characters out of 1155272
- 69988 words of memory out of 3000000
+ 68988 words of memory out of 3000000
  4624 multiletter control sequences out of 15000+50000
  32467 words of font info for 82 fonts, out of 3000000 for 9000
  706 hyphenation exceptions out of 8191
  27i,10n,24p,1862b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/
-base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb
-></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
-e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texl
-ive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
-msy8.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/sha
-re/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fon
-ts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/u
-tmri8a.pfb>
-Output written on cs65f12.pdf (5 pages, 148422 bytes).
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fo
+nts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
+re/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/f
+onts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times
+/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on cs65f12.pdf (6 pages, 150185 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
+ 66 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
