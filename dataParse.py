@@ -14,8 +14,8 @@ Usage parseA():
   data[SID\tUID][<index>]['tweet']	- the contents of the tweet  
 '''
 #-----------------------------------------------------------------------------#
-PERCENTTRAIN = .2
-PERCENTTEST  = .1
+PERCENTTRAIN = .8
+PERCENTTEST  = .2
 from collections import defaultdict
 #-----------------------------------------------------------------------------#
 
@@ -36,13 +36,12 @@ def parseB(filename):
 
   infile = open(filename, 'r')
   for line in infile:
+    line = line.strip().split('\t')    
     if count < int(totalLines*PERCENTTRAIN):
-      line = line.strip().split('\t')
       dictID = line[0]+'\t'+line[1]
       data[dictID][line[2]]['polar'] = line[3].strip('\"')
       data[dictID][line[2]]['tweet'] = line[4]
-    elif count >= int(totalLines*(1-PERCENTTEST)): 
-      line = line.strip().split('\t')
+    if count >= int(totalLines*(1-PERCENTTEST)): 
       dictID = line[0]+'\t'+line[1]
       test[dictID][line[2]]['polar'] = line[3].strip('\"')
       test[dictID][line[2]]['tweet'] = line[4]
@@ -61,14 +60,13 @@ def parseA(filename):
 
   infile = open(filename, 'r')
   for line in infile:
+    line = line.strip().split('\t')    
     if count < int(totalLines*PERCENTTRAIN):
-      line = line.strip().split('\t')
       dictID = line[0]+'\t'+line[1]
       index = (line[2],line[3])
       data[dictID][index]['polar'] = line[4].strip('\"')
       data[dictID][index]['tweet'] = line[5]
-    elif count >= int(totalLines*(1-PERCENTTEST)):
-      line = line.strip().split('\t')
+    if count >= int(totalLines*(1-PERCENTTEST)):
       dictID = line[0]+'\t'+line[1]
       index = (line[2],line[3])
       test[dictID][index]['polar'] = line[4].strip('\"')

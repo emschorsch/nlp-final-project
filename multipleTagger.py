@@ -40,7 +40,7 @@ def lexiconTag(trainA, trainB, lexicon):
       elif pos < neg: 
         tagsA[ID][index] = 'negative'
       else:
-        tagsA[ID][index] = 'objective'
+        tagsA[ID][index] = choice(['objective'])
    
   # Use Lexicon to tag data from trainB
   for ID in trainB.keys():
@@ -63,7 +63,7 @@ def lexiconTag(trainA, trainB, lexicon):
       elif pos < neg: 
         tagsB[ID][subject] = 'negative'
       else:
-        tagsB[ID][subject] = 'objective'
+        tagsB[ID][subject] = choice(['objective'])
   
   return tagsA, tagsB
 
@@ -183,25 +183,25 @@ if __name__ == '__main__':
   trainB, testB  = parseB(trainingFileB)
   lexicon = getSentimentWords(lexiconFile)
 
-  # lexicon tagger
-  print '\nLEXICON TAGGER'
-  tagsA, tagsB = lexiconTag(trainA, trainB, lexicon)
-  checkTagsA(tagsA,trainA)
-  checkTagsB(tagsB,trainB)
-
-  # random tagging
-  print '\nRANDOM'
-  trueRandom(trainA, testA, 'A')
-  trueRandom(trainB, testB, 'B')
-
   # mfs tagging
   print '\nMOST FREQUENT SENSE'
   mfsTag(trainA, testA, 'A')
   mfsTag(trainB, testB, 'B')
 
+  # lexicon tagger
+  print '\nLEXICON TAGGER'
+  tagsA, tagsB = lexiconTag(testA, testB, lexicon)
+  checkTagsA(tagsA,testA)
+  checkTagsB(tagsB,testB)
+
+  # random tagging
+  #print '\nRANDOM'
+  #trueRandom(trainA, testA, 'A')
+  #trueRandom(trainB, testB, 'B')
+
   # weighted random
-  print '\nWEIGHTED RANDOM'
-  weightedRandomTag(trainA, testA, 'A')  
-  weightedRandomTag(trainB, testB, 'B')
+  #print '\nWEIGHTED RANDOM'
+  #weightedRandomTag(trainA, testA, 'A')  
+  #weightedRandomTag(trainB, testB, 'B')
 
 # ----------------------------------------------------------------- #
