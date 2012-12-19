@@ -159,17 +159,57 @@ def unigramsBigrams(train):
   elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
   return mfp, mfs
 
+def allGrams(train):
+  mfp = defaultdict(lambda: defaultdict(int))  
+  pos = neg = obj = neut = 0
+  
+  for ID in train.keys():
+    for subj in train[ID].keys():
+      if train[ID][subj]['polar'] == 'positive':  pos  += 1
+      if train[ID][subj]['polar'] == 'negative':  neg  += 1
+      if train[ID][subj]['polar'] == 'neutral':   neut += 1
+      if train[ID][subj]['polar'] == 'objective': obj  += 1
+      tweet = train[ID][subj]['tweet'].split()
+      if len(tweet) >= 3:
+        for i in range(2,len(tweet)):
+          w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+	  w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+          w3 = tweet[i-2].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+          trigram = w3 + ' ' + w1 + ' ' + w2
+          polar = train[ID][subj]['polar']
+          mfp[trigram][polar] += 1
+          mfp[trigram]['count'] += 1
 
+      if len(tweet) >= 2:
+        for i in range(1,len(tweet)):
+          w1 = tweet[i-1].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+	  w2 = tweet[i].lower().strip('\'\"!@#$%^&*(),.?<>;:')
+          bigram = w1 + ' ' + w2
+          polar = train[ID][subj]['polar']
+          mfp[bigram][polar] += 1
+          mfp[bigram]['count'] += 1
+      for word in tweet:
+        word1 = word.lower().strip('\'\"!@#$%^&*(),.?<>;:-')
+        polar = train[ID][subj]['polar']
+        mfp[word1][polar] += 1
+        mfp[word1]['count'] += 1
+      
+  if pos > neg and pos > neut and pos > obj: mfs = 'positive'
+  elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
+  elif neut > neg and neut > pos and neut > obj: mfs = 'neutral'
+  elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
+  return mfp, mfs
 # ----------------------------------------------------------------- #
 
 def decisionList(train,test):
   scores = defaultdict(lambda: defaultdict(int))
 
   # get counts of the mfp (most frequent polarity)
-  mfp, mfs = getUnigrams(train)
+  #mfp, mfs = getUnigrams(train)
   #mfp, mfs = getBigrams(train)
   #mfp, mfs = getTrigrams(train)
   #mfp, mfs = unigramsBigrams(train)
+  mfp, mfs = allGrams(train)
   
   # get the highest score for each unigram and its associated polarity
   getScores(scores,mfp)
@@ -193,14 +233,58 @@ if __name__ == '__main__':
   trainingFileB = 'trainB.txt'
 
   # parse training and testing data
-  trainA, testA  = parseA(trainingFileA)
-  trainB, testB  = parseB(trainingFileB)
+  trainA, testA  = parseA(trainingFileA,5)
+  trainB, testB  = parseB(trainingFileB,5)
   
   # decision list
-  print '\nDECISION LIST'
+  print '\nDECISION LIST Part 5'
   tagsA = decisionList(trainA,testA)
   tagsB = decisionList(trainB,testB)
-  #checkTagsA(tagsA,testA)
+  checkTagsA(tagsA,testA)
+  checkTagsB(tagsB,testB)
+  
+  # parse training and testing data
+  trainA, testA  = parseA(trainingFileA,4)
+  trainB, testB  = parseB(trainingFileB,4)
+  
+  # decision list
+  print '\nDECISION LIST Part 4'
+  tagsA = decisionList(trainA,testA)
+  tagsB = decisionList(trainB,testB)
+  checkTagsA(tagsA,testA)
+  checkTagsB(tagsB,testB)
+  
+  # parse training and testing data
+  trainA, testA  = parseA(trainingFileA,3)
+  trainB, testB  = parseB(trainingFileB,3)
+  
+  # decision list
+  print '\nDECISION LIST Part 3'
+  tagsA = decisionList(trainA,testA)
+  tagsB = decisionList(trainB,testB)
+  checkTagsA(tagsA,testA)
+  checkTagsB(tagsB,testB)
+  
+  # parse training and testing data
+  trainA, testA  = parseA(trainingFileA,2)
+  trainB, testB  = parseB(trainingFileB,2)
+  
+  # decision list
+  print '\nDECISION LIST Part 2'
+  tagsA = decisionList(trainA,testA)
+  tagsB = decisionList(trainB,testB)
+  checkTagsA(tagsA,testA)
+  checkTagsB(tagsB,testB)
+  
+  # parse training and testing data
+  trainA, testA  = parseA(trainingFileA,1)
+  trainB, testB  = parseB(trainingFileB,1)
+  
+  # decision list
+  print '\nDECISION LIST Part 1'
+  tagsA = decisionList(trainA,testA)
+  tagsB = decisionList(trainB,testB)
+  checkTagsA(tagsA,testA)
   checkTagsB(tagsB,testB)
 
 # ----------------------------------------------------------------- #

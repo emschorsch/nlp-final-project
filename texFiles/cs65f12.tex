@@ -130,13 +130,14 @@ The most frequent sense (MFS) classifier is used as a baseline for comparison in
   \hline
   Features & Naive Bayes & Decision List & Subjectivity Lexicon & MFS \\ 
   \hline \hline
-  Unigrams            & 57.14\% & 58.33\% & 54.17\% & 46.67\% \\  \hline
-  Bigrams             & 52.94\% & 46.67\% & N/A     & 46.67\% \\  \hline
-  Trigrams            & 54.62\% & 46.67\% & N/A     & 46.67\% \\  \hline
-  Bigrams \& Unigrams & 55.46\% & 57.50\% & N/A     & 46.67\% \\  \hline
+  Unigrams              & 59.15\% & 58.66\% & 52.28\% & 52.12\% \\  \hline
+  Bigrams               & 58.98\% & 52.12\% & N/A     & 52.12\% \\  \hline
+  Trigrams              & \% & 52.12\% & N/A     & 52.12\% \\  \hline
+  Bigrams \& Unigrams   & 59.66\% & 58.49\% & N/A     & 52.12\% \\  \hline
+  Bi, Tri, \& Unigrams  & 58.64\% & 58.49\% & N/A     & 52.12\% \\ \hline
   \end{tabular}
   \end{center}
-  \caption{Accuracy of classifiers labeling the sentiment of a given topic contained within a tweet. All classifiers were trained on 80\% of the second Twitter corpus and were then tested on the remaining 20\% of the data.}
+  \caption{Averaege accuracy of classifiers labeling the sentiment of a given topic contained within a tweet using five-fold cross-validation. All classifiers were trained on 80\% of the second Twitter corpus and were then tested on the remaining 20\% of the data.}
 \end{table*}
 
 \begin{table*}[ht]
@@ -145,13 +146,14 @@ The most frequent sense (MFS) classifier is used as a baseline for comparison in
   \hline
   Features & Naive Bayes & Decision List & Subjectivity Lexicon & MFS \\ 
   \hline \hline
-  Unigrams            & 64.71\% & 64.36\% & 44.03\% & 64.36\% \\  \hline
-  Bigrams             & 64.92\% & 64.36\% & N/A     & 64.36\% \\  \hline
-  Trigrams            & 64.92\% & 64.36\% & N/A     & 64.36\% \\  \hline
-  Bigrams \& Unigrams & 64.92\% & 64.36\% & N/A     & 64.36\% \\  \hline
+  Unigrams              & 65.22\% & 64.12\% & 44.98\% & 64.12\% \\  \hline
+  Bigrams               & 64.76\% & 64.12\% & N/A     & 64.12\% \\  \hline
+  Trigrams              & 64.75\% & 64.12\% & N/A     & 64.12\% \\  \hline
+  Bigrams \& Unigrams   & 65.39\% & 64.12\% & N/A     & 64.12\% \\  \hline
+  Bi, Tri, \& Unigrams  & 65.43\% & 64.12\% & N/A     & 52.12\% \\ \hline  
   \end{tabular}
   \end{center}
-  \caption{Accuracy of classifiers labeling the sentiment of a given topic contained within a tweet. All classifiers were trained on 80\% of the first Twitter corpus and were then tested on the remaining 20\% of the data.}
+  \caption{Average accuracy of classifiers labeling the sentiment of a given topic contained within a tweet using five-fold cross-validation. All classifiers were trained on 80\% of the first Twitter corpus and were then tested on the remaining 20\% of the data.}
 \end{table*}
 
 \begin{figure*}
@@ -163,24 +165,24 @@ The most frequent sense (MFS) classifier is used as a baseline for comparison in
   \addlegendentry{Most Freq. Sense};  
   \addplot[color=red, mark=*] coordinates {
     (10,46.67)
-    (20,46.67)
-    (30,46.67)
-    (40,46.67)
-    (50,46.67)
-    (60,46.67)
-    (70,46.67)
-    (80,46.67)
+    (20,52.12)
+    (30,52.12)
+    (40,52.12)
+    (50,52.12)
+    (60,52.12)
+    (70,52.12)
+    (80,52.12)
   };
   \addlegendentry{Subj. Lexicon};  
   \addplot[color=blue, mark=x] coordinates {
-    (10,54.17)
-    (20,54.17)
-    (30,54.17)
-    (40,54.17)
-    (50,54.17)
-    (60,54.17)
-    (70,54.17)
-    (80,54.17)
+    (10,52.28)
+    (20,52.28)
+    (30,52.28)
+    (40,52.28)
+    (50,52.28)
+    (60,52.28)
+    (70,52.28)
+    (80,52.28)
   };
   \addlegendentry{DL: Unigrams};  
   \addplot[color=green, mark=+] coordinates {

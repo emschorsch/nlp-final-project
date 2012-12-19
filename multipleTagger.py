@@ -150,7 +150,7 @@ def mfsTag(train,test,task):
       if test[ID][index]['polar'] == mfs:
         correct += 1
       total += 1
-
+  print correct,total
   print '[Task %s] Most Frequent (%s): Percent Correct:  %0.4f (%.0f/%.0f)' \
       %(task, mfs, correct/total, correct, total)
 
@@ -179,8 +179,8 @@ if __name__ == '__main__':
   lexiconFile   = 'sentimentLexicon.txt'
 
   # parse training and testing data
-  trainA, testA  = parseA(trainingFileA)
-  trainB, testB  = parseB(trainingFileB)
+  trainA, testA  = parseA(trainingFileA,5)
+  trainB, testB  = parseB(trainingFileB,5)
   lexicon = getSentimentWords(lexiconFile)
 
   # mfs tagging

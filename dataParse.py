@@ -27,50 +27,56 @@ def getTotalLines(filename):
 
 #-----------------------------------------------------------------------------#
 
-def parseB(filename):
+def parseB(filename,segment):
   totalLines = getTotalLines(filename)
   count = 1
 
   data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
   test = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
 
+  startPartition = int(totalLines*((segment - 1) * PERCENTTEST))
+  endPartition   = int(totalLines*((segment) * PERCENTTEST))
+  
   infile = open(filename, 'r')
   for line in infile:
-    line = line.strip().split('\t')    
-    if count < int(totalLines*PERCENTTRAIN):
-      dictID = line[0]+'\t'+line[1]
-      data[dictID][line[2]]['polar'] = line[3].strip('\"')
-      data[dictID][line[2]]['tweet'] = line[4]
-    if count >= int(totalLines*(1-PERCENTTEST)): 
+    line = line.strip().split('\t')  
+    if count >= startPartition  and count <= endPartition: 
       dictID = line[0]+'\t'+line[1]
       test[dictID][line[2]]['polar'] = line[3].strip('\"')
       test[dictID][line[2]]['tweet'] = line[4]
+    else:
+      dictID = line[0]+'\t'+line[1]
+      data[dictID][line[2]]['polar'] = line[3].strip('\"')
+      data[dictID][line[2]]['tweet'] = line[4]
     count += 1
   infile.close()
   return data, test
 
 #-----------------------------------------------------------------------------#
 
-def parseA(filename):
+def parseA(filename,segment):
   totalLines = getTotalLines(filename)
   count = 1
 
   data = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
   test = defaultdict(lambda: defaultdict(lambda: defaultdict(str)))
 
+  startPartition = int(totalLines*((segment - 1) * PERCENTTEST))
+  endPartition   = int(totalLines*((segment) * PERCENTTEST))
+
   infile = open(filename, 'r')
   for line in infile:
-    line = line.strip().split('\t')    
-    if count < int(totalLines*PERCENTTRAIN):
-      dictID = line[0]+'\t'+line[1]
-      index = (line[2],line[3])
-      data[dictID][index]['polar'] = line[4].strip('\"')
-      data[dictID][index]['tweet'] = line[5]
-    if count >= int(totalLines*(1-PERCENTTEST)):
+    line = line.strip().split('\t')   
+    if count >= startPartition and count <= endPartition: 
       dictID = line[0]+'\t'+line[1]
       index = (line[2],line[3])
       test[dictID][index]['polar'] = line[4].strip('\"')
       test[dictID][index]['tweet'] = line[5]
+    else:
+      dictID = line[0]+'\t'+line[1]
+      index = (line[2],line[3])
+      data[dictID][index]['polar'] = line[4].strip('\"')
+      data[dictID][index]['tweet'] = line[5]
     count += 1
   infile.close()
   return data, test
