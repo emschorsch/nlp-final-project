@@ -84,6 +84,96 @@ def getSentimentWords(filename):
 
 # ----------------------------------------------------------------- #
 
+def mfslexiconTag(trainA, trainB, testA, testB, lexicon):
+  '''
+  Takes in two sources of data (for A and B) and then generates tags
+  based on the number of weighted words containged within each tweet
+  '''
+
+  # Dictionary of tags - usage: tags[ID][index] = tag  
+  tagsA = defaultdict(lambda: defaultdict(str))
+  tagsB = defaultdict(lambda: defaultdict(str))
+
+  # Use Lexicon to tag data from trainA
+  pos = neg = obj = neut = 0
+  correct = total = 0.0
+  for ID in trainA.keys():
+    for index in trainA[ID].keys():
+      if trainA[ID][index]['polar'] == 'positive':  pos  += 1
+      if trainA[ID][index]['polar'] == 'negative':  neg  += 1
+      if trainA[ID][index]['polar'] == 'neutral':   neut += 1
+      if trainA[ID][index]['polar'] == 'objective': obj  += 1
+  
+  if pos > neg and pos > neut and pos > obj: mfs = 'positive'
+  elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
+  elif neut > neg and neut > pos and neut > obj: mfs = 'neutral'
+  elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
+
+  for ID in testA.keys():
+    for index in testA[ID].keys():
+      start,end = index
+      tweet = (testA[ID][index]['tweet']).split()[int(start):int(end)]
+      pos = neg = 0
+      for word in tweet:
+        word = word.lower().strip("-=+(),!@#$%^&*./\"\'")
+
+	# determine the number of weighted words in the tweet
+        for position in lexicon[word].keys():
+          if lexicon[word][position]['polar'] == 'positive':
+            pos += 1
+          elif lexicon[word][position]['polar'] == 'negative':
+            neg += 1
+	
+      # tag the tweet
+      if pos > neg:
+        tagsA[ID][index] = 'positive'
+      elif pos < neg: 
+        tagsA[ID][index] = 'negative'
+      else:
+        tagsA[ID][index] = mfs
+
+  # Use Lexicon to tag data from trainB
+
+  pos = neg = obj = neut = 0
+  correct = total = 0.0
+  for ID in trainB.keys():
+    for index in trainB[ID].keys():
+      if trainB[ID][index]['polar'] == 'positive':  pos  += 1
+      if trainB[ID][index]['polar'] == 'negative':  neg  += 1
+      if trainB[ID][index]['polar'] == 'neutral':   neut += 1
+      if trainB[ID][index]['polar'] == 'objective': obj  += 1
+  
+  if pos > neg and pos > neut and pos > obj: mfs = 'positive'
+  elif neg > pos and neg > neut and neg > obj: mfs = 'negative'
+  elif neut > neg and neut > pos and neut > obj: mfs = 'neutral'
+  elif obj > neg and obj > neut and obj > pos: mfs = 'objective'
+
+  for ID in testB.keys():
+    for subject in testB[ID].keys():
+      tweet = (testB[ID][subject]['tweet']).split()
+      pos = neg = 0
+      for word in tweet:
+        word = word.lower().strip(",!@#$%^&*./\"\'")
+
+	# determine the number of weighted words in the tweet
+        for position in lexicon[word].keys():
+          if lexicon[word][position]['polar'] == 'positive':
+            pos += 1
+          elif lexicon[word][position]['polar'] == 'negative':
+            neg += 1
+
+      # tag the tweet
+      if pos > neg:
+        tagsB[ID][subject] = 'positive'
+      elif pos < neg: 
+        tagsB[ID][subject] = 'negative'
+      else:
+        tagsB[ID][subject] = mfs
+  
+  return tagsA, tagsB
+
+# ----------------------------------------------------------------- #
+
 def weightedRandomTag(train, test, task):
   '''
   Takes in two sources of data (test and train for a) and then 
@@ -183,6 +273,7 @@ if __name__ == '__main__':
   trainB, testB  = parseB(trainingFileB,5)
   lexicon = getSentimentWords(lexiconFile)
 
+  '''
   # mfs tagging
   print '\nMOST FREQUENT SENSE'
   mfsTag(trainA, testA, 'A')
@@ -193,15 +284,23 @@ if __name__ == '__main__':
   tagsA, tagsB = lexiconTag(testA, testB, lexicon)
   checkTagsA(tagsA,testA)
   checkTagsB(tagsB,testB)
+  '''
+  
+  # lexicon tagger
+  print '\nMFS LEXICON TAGGER'
+  tagsA, tagsB = mfslexiconTag(trainA, trainB, testA, testB, lexicon)
+  checkTagsA(tagsA,testA)
+  checkTagsB(tagsB,testB)
 
+  '''
   # random tagging
-  #print '\nRANDOM'
-  #trueRandom(trainA, testA, 'A')
-  #trueRandom(trainB, testB, 'B')
+  print '\nRANDOM'
+  trueRandom(trainA, testA, 'A')
+  trueRandom(trainB, testB, 'B')
 
   # weighted random
-  #print '\nWEIGHTED RANDOM'
-  #weightedRandomTag(trainA, testA, 'A')  
-  #weightedRandomTag(trainB, testB, 'B')
-
+  print '\nWEIGHTED RANDOM'
+  weightedRandomTag(trainA, testA, 'A')  
+  weightedRandomTag(trainB, testB, 'B')
+  '''
 # ----------------------------------------------------------------- #

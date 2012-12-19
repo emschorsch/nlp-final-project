@@ -43,7 +43,7 @@ def getTags(rules,test,mfs):
           taggedFlag = True
           break
       if not taggedFlag:
-        tags[ID][index] = mfs
+        tags[ID][index] = 'neutral'
   return tags
 
 # ----------------------------------------------------------------- #
@@ -205,11 +205,11 @@ def decisionList(train,test):
   scores = defaultdict(lambda: defaultdict(int))
 
   # get counts of the mfp (most frequent polarity)
-  #mfp, mfs = getUnigrams(train)
+  mfp, mfs = getUnigrams(train)
   #mfp, mfs = getBigrams(train)
   #mfp, mfs = getTrigrams(train)
   #mfp, mfs = unigramsBigrams(train)
-  mfp, mfs = allGrams(train)
+  #mfp, mfs = allGrams(train)
   
   # get the highest score for each unigram and its associated polarity
   getScores(scores,mfp)

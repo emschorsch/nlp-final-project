@@ -5,7 +5,6 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{float}
-\restylefloat{table}
 \usepackage{pgfplots}
 \newcommand{\cou}{\textrm{count}}
 \setlength\titlebox{6.5cm}    % Expanding the titlebox
@@ -116,73 +115,98 @@ A decision list classifier is equivalent to simple case statements or an extende
 \subsubsection*{Subjectivity Lexicon}
 A subjectivity lexicon was used to classify and determine the polarity of tweets. The subjectivity lexicon was acquired from OpinionFinder, a list containing roughly 6,500 words, their polarity, and the strength of their subjectivity. This lexicon was then used to determine the polarity of each word within the given tweet or tweet segment. The strength of each word, which was labeled as either strong or weak, was ignored for testing.
 
-\indent Individual counts of the number of positive and negative words for each tweet were than kept. If a tweet or tweet segment contained more positive words than negative words, the tweet was then defined as having a positive polarity. If the tweet contained more negative words than positive words, the tweet was determined to have a negative polarity. However, if a tweet contained neither any positive words nor any negative words or if the count of positive and negative words were equal, the tweet was labeled as objective. Within the subjectivity lexicon classifier, words were not labeled as neutral.
+\indent Two variations of the subjectivity classifier were implemented. In both, individual counts of the number of positive and negative words for each tweet were then kept. If a tweet or tweet segment contained more positive words than negative words, the tweet was then defined as having a positive polarity. If the tweet contained more negative words than positive words, the tweet was determined to have a negative polarity. However in the first classifier, if a tweet contained neither any positive words nor any negative words or if the count of positive and negative words were equal, the tweet was labeled as objective. Within this subjectivity lexicon classifier, words were not labeled as neutral. If a tweet contained neither positive words nor negative words or contained an equal number of each polarity, the second subjectivity lexicon classifier would then determine the polarity of the tweet to be the most frequent sense, or polarity, contained within the training data. This second classifier will be referred to as the MFS subjectivity lexicon classifier.
 
-\indent Because the subjectivity classifier requires no labeled tweets to be used as training data, the classifier was tested on all tweets within each corpus. However, in order to compare the results of the subjectivity lexicon classifier to the results of our other classifiers, the lexicon was also used to label only the test data used by all other classifiers.
+\indent Because the first subjectivity classifier requires no labeled tweets to be used as training data, this classifier was tested on all tweets within each corpus. However, in order to compare the results of the subjectivity lexicon classifier to the results of our other classifiers, the lexicon was also used to label only the test data used by all other classifiers. The MFS subjectivity lexicon classifier was trained and tested on the same data as the decision list and naive Bayes classifiers. 
 
 \subsubsection*{Most Frequent Sense}
 The most frequent sense (MFS) classifier is used as a baseline for comparison in our experiments. For each corpus, the classifier counts the occurrences of each sense. The classifier then labels all test data with the sense with the highest count. This method is also used in the decision list if the list has no more rules with scores greater than or equal to one.
 
 \section{Results}
-\begin{table*}[ht]
-  \begin{center}
-  \begin{tabular}{| l || l | l | l | l |}
+\begin{table*}[htb!]
+  \centering
+  \begin{tabular}{| l || l | l | l | l | l |}
   \hline
-  Features & Naive Bayes & Decision List & Subjectivity Lexicon & MFS \\ 
+  Features & Naive Bayes & Decision List & Subj. Lexicon & MFS Subj. Lexicon & MFS \\ 
   \hline \hline
-  Unigrams              & 59.15\% & 58.66\% & 52.28\% & 52.12\% \\  \hline
-  Bigrams               & 58.98\% & 52.12\% & N/A     & 52.12\% \\  \hline
-  Trigrams              & \% & 52.12\% & N/A     & 52.12\% \\  \hline
-  Bigrams \& Unigrams   & 59.66\% & 58.49\% & N/A     & 52.12\% \\  \hline
-  Bi, Tri, \& Unigrams  & 58.64\% & 58.49\% & N/A     & 52.12\% \\ \hline
+  Unigrams              & 59.32\%      & \bf{58.66}\% & \bf{52.28}\% & \bf{55.47\%} & 52.12\% \\  \hline
+  Bigrams               & 58.13\%      & 52.12\%      & N/A          & N/A          & 52.12\% \\  \hline
+  Trigrams              & 52.20\%      & 52.12\%      & N/A          & N/A          & 52.12\% \\  \hline
+  Bigrams \& Unigrams   & \bf{59.66}\% & 58.49\%      & N/A          & N/A          & 52.12\% \\  \hline
+  Bi, Tri, \& Unigrams  & 58.48\%      & 58.49\%      & N/A          & N/A          & 52.12\% \\  \hline
   \end{tabular}
-  \end{center}
-  \caption{Averaege accuracy of classifiers labeling the sentiment of a given topic contained within a tweet using five-fold cross-validation. All classifiers were trained on 80\% of the second Twitter corpus and were then tested on the remaining 20\% of the data.}
+  \caption{Average accuracy of classifiers labeling the sentiment of a given topic contained within a tweet using fivefold cross-validation on the second Twitter corpus.}
 \end{table*}
 
-\begin{table*}[ht]
-  \begin{center}
-  \begin{tabular}{| l || l | l | l | l |}
+\begin{table*}[htp!]
+  \centering
+  \begin{tabular}{| l || l | l | l | l| l |}
   \hline
-  Features & Naive Bayes & Decision List & Subjectivity Lexicon & MFS \\ 
+  Features & Naive Bayes & Decision List & Subj. Lexicon & MFS Subj. Lexicon & MFS \\ 
   \hline \hline
-  Unigrams              & 65.22\% & 64.12\% & 44.98\% & 64.12\% \\  \hline
-  Bigrams               & 64.76\% & 64.12\% & N/A     & 64.12\% \\  \hline
-  Trigrams              & 64.75\% & 64.12\% & N/A     & 64.12\% \\  \hline
-  Bigrams \& Unigrams   & 65.39\% & 64.12\% & N/A     & 64.12\% \\  \hline
-  Bi, Tri, \& Unigrams  & 65.43\% & 64.12\% & N/A     & 52.12\% \\ \hline  
+  Unigrams              & 64.84\%      & \bf{64.12\%} & \bf{44.98\%} & \bf{44.98\%} & 64.12\% \\  \hline
+  Bigrams               & 64.76\%      & 64.12\%      & N/A          & N/A          & 64.12\% \\  \hline
+  Trigrams              & 64.38\%      & 64.12\%      & N/A          & N/A          & 64.12\% \\  \hline
+  Bigrams \& Unigrams   & \bf{65.56\%} & 64.12\%      & N/A          & N/A          & 64.12\% \\  \hline
+  Bi, Tri, \& Unigrams  & \bf{65.56\%} & 64.12\%      & N/A          & N/A          & 64.12\% \\  \hline  
   \end{tabular}
-  \end{center}
-  \caption{Average accuracy of classifiers labeling the sentiment of a given topic contained within a tweet using five-fold cross-validation. All classifiers were trained on 80\% of the first Twitter corpus and were then tested on the remaining 20\% of the data.}
+  \caption{Average accuracy of classifiers labeling the sentiment of a subset of a tweet contained within a tweet using fivefold cross-validation on the first Twitter corpus.}
 \end{table*}
 
-\begin{figure*}
-\begin{tikzpicture}
+\subsection{Tweet Polarity Classification}
+The classification accuracies for determining the polarity of a given subject found within a tweet are shown in Table 2. These entries represent that average accuracy of each classifier when trained on the given feature using fivefold cross-validation. It is evident that bag-of-unigram features provided the best classification results, with each classifier surpassing the most frequent sense baseline of 52.12\%.
+
+\subsubsection*{Decision List}
+The decision list classifier did very well when training on some variety of unigrams, but only managed to achieve the same accuracy as the most frequent sense baseline when trained on only bigrams or trigrams. It is important to note that the rules generated by the decision list when trained on these two feature sets were rarely seen again, resulting the in the decision list classifying almost all tweets with the most frequent sense. However, when these features were paired with unigram features, the accuracy of the decision list increased significantly. This data suggests that unigram features are the most effective feature sets to use when training and testing on small data sets.
+
+\subsubsection*{Naive Bayes}
+The naive Bayes classifier was the most consistent classifier and generated the highest average accuracies. When trained on unigram feature sets, this classifier had similar accuracies to the decision list classifier. However, this classifier was able to score much better than both the decision list and the most frequent sense baseline when trained on bag-of-bigram features. This suggests that the naive Bayes classifier is more adept at determining the polarity of tweets when trained on very little data compared to the other classifiers tested.
+
+\subsubsection*{Subjectivity Lexicon}
+The subjectivity lexicon had the lowest accuracy of the three classifiers, scoring just above the average most frequent baseline. Although the lexicon was able to correctly determine the polarity of a given word, it was not able to account for sarcasm or negation. This resulted in the incorrect classification of tweets. It is important to note that the most frequent sense subjectivity classifier had a better average accuracy than both the most frequent sense and subjectivity lexicon classifiers, but not as high as either the naive bayes nor decision list classifiers. 
+
+\subsection{Contextual Polarity Classification}
+
+\begin{figure}[htb!]
+  \centering
+  \begin{tikzpicture}
   \begin{axis}[
     xlabel=Training Size (Percent of Corpus),
     ylabel=Accuracy,
+    width = 7cm
   ]
   \addlegendentry{Most Freq. Sense};  
   \addplot[color=red, mark=*] coordinates {
     (10,46.67)
-    (20,52.12)
-    (30,52.12)
-    (40,52.12)
-    (50,52.12)
-    (60,52.12)
-    (70,52.12)
-    (80,52.12)
+    (20,46.67)
+    (30,46.67)
+    (40,46.67)
+    (50,46.67)
+    (60,46.67)
+    (70,46.67)
+    (80,46.67)
   };
   \addlegendentry{Subj. Lexicon};  
   \addplot[color=blue, mark=x] coordinates {
-    (10,52.28)
-    (20,52.28)
-    (30,52.28)
-    (40,52.28)
-    (50,52.28)
-    (60,52.28)
-    (70,52.28)
-    (80,52.28)
+    (10,54.17)
+    (20,54.17)
+    (30,54.17)
+    (40,54.17)
+    (50,54.17)
+    (60,54.17)
+    (70,54.17)
+    (80,54.17)
+  };
+  \addlegendentry{MFS Subj. Lexicon};  
+  \addplot[color=yellow, mark=*] coordinates {
+    (10,53.33)
+    (20,53.33)
+    (30,53.33)
+    (40,53.33)
+    (50,53.33)
+    (60,53.33)
+    (70,53.33)
+    (80,53.33)
   };
   \addlegendentry{DL: Unigrams};  
   \addplot[color=green, mark=+] coordinates {
@@ -207,13 +231,15 @@ The most frequent sense (MFS) classifier is used as a baseline for comparison in
     (80,57.14)
   };
   \addplot[color=white] coordinates {
-    (10,75)
+    (10,90)
   };
   \end{axis}
-\end{tikzpicture}
-\end{figure*}
+  \end{tikzpicture}
+  \caption{Accuracy of classifiers labeling the sentiment of a given topic contained within a tweet. Each classifier was trained on the indicated percent of the second Twitter corpus and were then tested on the last 20\% of the data.}
+\end{figure}
 
-
+\subsection{Effects of Limited Training on Accuracy}
+In addition to analyzing the ability of each classifier to determine the polarity of subjects and segments of tweets, we experimented with limiting the amount of training data available to each classifier. As shown in Figure 1, each classifier was given a percentage of training data from the second corpus and then used to classify the polarity of a designated test data set. For this experiment, twenty-percent of the tweets from the second Twitter corpus were reserved as test data. Each classifier then was trained on another percentage of the corpus, which increased by ten-percent each step. As the data incremented, the most frequent sense and both subjectivity lexicon classifiers remained at a constant accuracy. However, we can see an increase in accuracy in both the naive bayes and decision list classifiers as the size of the training data increases. This suggests that as each model trains on more data, their accuracy will continue to increase. 
 \section{Analysis}
 
 \section{Conclusion}
