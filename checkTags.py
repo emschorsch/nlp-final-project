@@ -22,6 +22,8 @@ def checkTagsA(tagsA,testA):
       guess = tagsA[ID][index]
       if guess == polar:
         correct += 1
+      else: 
+        print testA[ID][index]['tweet'],testA[ID][index]['polar'],guess
 
       # Keep track of true and false assignments  
       if   guess == 'positive'  and guess == polar: TPos  += 1
@@ -64,6 +66,9 @@ def checkTagsB(tagsB,testB):
       guess = tagsB[ID][subject]
       if guess == polar:
         correct += 1
+      elif guess == 'positive':
+        print '%s | %s | %s | guess = %s \n' %(testB[ID][subject]['tweet'], subject, testB[ID][subject]['polar'],guess)
+        
 
       # Keep track of true and false assignments  
       if   guess == 'positive'  and guess == polar: TPos  += 1

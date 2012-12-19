@@ -200,7 +200,7 @@ if __name__ == '__main__':
   print '\nDECISION LIST'
   tagsA = decisionList(trainA,testA)
   tagsB = decisionList(trainB,testB)
-  checkTagsA(tagsA,testA)
+  #checkTagsA(tagsA,testA)
   checkTagsB(tagsB,testB)
 
 # ----------------------------------------------------------------- #
