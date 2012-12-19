@@ -68,8 +68,9 @@ In order to implement the sentiment classifiers such that they can label the giv
 In order to determine the sentiment of a given tweet, three algorithms were implemented: a naive Bayes classifier, a decision list classifier, and a subjectivity lexicon classifier.
 \subsubsection*{Naive Bayes}
 Using the Naive Bayes classifier, a given feature vector $\vec{f}$ is assigned
-the polarity \^{s} returned by 
-$\hat{s} = \underset{{s}\in{S}}{\arg\max}P(s|\vec{f})$. Using Bayes rule we can rewrite this equation:
+the polarity \^{s} given by: 
+$$\hat{s} = \underset{{s}\in{S}}{\arg\max}P(s|\vec{f})$$
+Using Bayes rule we can rewrite this equation:
 \[\hat{s} = \underset{{s}\in{S}}{\arg\max}{\frac{P(\vec{f}|s)P(s)}{P(\vec{f})}}.\]
 Since $P(\vec{f})$ is constant across all polarities, it
 does not affect the choice of $\hat{s}$ and we can discard it. This leaves us with:
@@ -88,8 +89,7 @@ This is represented by:
 The probability of a specific sense $s$ is calculated in a similar manner:
 $$P(f_i|s) = \frac{\cou(s)}{\underset{s_i \in S}{\sum} \cou(s_i)}.$$
 
-Each of these equations utilizes Laplace add-one smoothing, allowing for non-zero probabilities to be assigned to words found in the test data that were not seen in the training sample. It is also important to note the using bigrams and trigrams as features in our naive Bayes classifier ignores the assumption that all
-features within a feature vector are independent from one another. However, we are assuming that each n-gram within a tweet is independent from all other n-grams also contained within the tweet.
+The feature we relied on most heavily was a unigram model. However, we also implemented bigram and trigram models to see if adding those features to the naive Bayes classifier would improve performance. While higher order n-gram models blatantly violate the assumption of conditional indpendence the naive Bayes classifier still performs well.
 
 \subsubsection*{Decision List}
 A decision list classifier is equivalent to simple case statements or an extended if-else statement. Decision lists generate a set of rules or conditions, for which there is a single classification associated. These rules are generated from tagged feature vectors and then scored and ordered based on their associated scores. Similar to the approach used by Yarowsky, each feature and value pair is treated as a rule~\cite{yarowsky1994decision}. In order to generate the best rule for each possible classification, the following equation is used:
@@ -121,7 +121,7 @@ A subjectivity lexicon was used to classify and determine the polarity of tweets
 \indent Because the subjectivity classifier requires no labeled tweets to be used as training data, the classifier was tested on all tweets within each corpus. However, in order to compare the results of the subjectivity lexicon classifier to the results of our other classifiers, the lexicon was also used to label only the test data used by all other classifiers.
 
 \subsubsection*{Most Frequent Sense}
-The most frequent sense (MFS) classifier is used as a baseline for comparison in our experiments. For each corpus, the classifier counts the number of occurrences for each polarity classification and then chooses that most frequently occurring tag. The classifier then labels all test data using this classification. This method is also used in the decision list if the list has exhausted all possible rules with a score greater than or equal to one.
+The most frequent sense (MFS) classifier is used as a baseline for comparison in our experiments. For each corpus, the classifier counts the occurrences of each sense. The classifier then labels all test data with the sense with the highest count. This method is also used in the decision list if the list has no more rules with scores greater than or equal to one.
 
 \section{Results}
 \begin{table*}[ht]
@@ -216,6 +216,7 @@ The most frequent sense (MFS) classifier is used as a baseline for comparison in
 
 \section{Conclusion}
 \subsection{Future Work}
+One shortcoming to our sentiment lexicon is that the sentiment words weren't derived from tweets. This is a large problem since word usage changes dramatically from written text to internet micro-blogging. In order to account for slang, emoticons, and other idiosyncracies of Twitter it would be interesting to implement a bootstrapping algorithm \cite{Riloffbootstrapping}. This would allow us to extract sentiment words directly from training data increasing the accuracy of the sentiment lexicon.
 
 \bibliographystyle{cs65f12}
 \bibliography{cs65f12}

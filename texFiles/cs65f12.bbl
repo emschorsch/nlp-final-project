@@ -43,6 +43,14 @@ B.~Pang, L.~Lee, and S.~Vaithyanathan.
   natural language processing-Volume 10}, pages 79--86. Association for
   Computational Linguistics.
 
+\bibitem[\protect\citename{Riloff \bgroup et al.\egroup
+  }2003]{Riloffbootstrapping}
+E.~Riloff, T.~Wiebe, and T.~Wilson.
+\newblock 2003.
+\newblock Learning subjective nouns using extraction pattern bootstrapping.
+\newblock In {\em Proceedings of the Seventh CoNLL conference held at HTL-NAACL
+  2003}, pages 25--32.
+
 \bibitem[\protect\citename{Wilson \bgroup et al.\egroup
   }2005]{wilson2005opinionfinder}
 T.~Wilson, P.~Hoffmann, S.~Somasundaran, J.~Kessler, J.~Wiebe, Y.~Choi,

@@ -2,44 +2,44 @@ This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
 The top-level auxiliary file: cs65f12.aux
 The style file: cs65f12.bst
 Database file #1: cs65f12.bib
-You've used 7 entries,
+You've used 8 entries,
             2490 wiz_defined-function locations,
-            594 strings with 6149 characters,
-and the built_in function-call counts, 3723 in all, are:
-= -- 394
-> -- 155
-< -- 5
-+ -- 54
-- -- 54
-* -- 267
-:= -- 569
-add.period$ -- 32
-call.type$ -- 7
-change.case$ -- 55
-chr.to.int$ -- 7
-cite$ -- 7
-duplicate$ -- 162
-empty$ -- 282
-format.name$ -- 61
-if$ -- 813
+            601 strings with 6366 characters,
+and the built_in function-call counts, 4235 in all, are:
+= -- 448
+> -- 173
+< -- 6
++ -- 60
+- -- 60
+* -- 301
+:= -- 642
+add.period$ -- 36
+call.type$ -- 8
+change.case$ -- 62
+chr.to.int$ -- 8
+cite$ -- 8
+duplicate$ -- 187
+empty$ -- 324
+format.name$ -- 68
+if$ -- 928
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 7
-newline$ -- 45
-num.names$ -- 21
-pop$ -- 72
+missing$ -- 8
+newline$ -- 51
+num.names$ -- 24
+pop$ -- 82
 preamble$ -- 1
-purify$ -- 62
+purify$ -- 70
 quote$ -- 0
-skip$ -- 123
+skip$ -- 144
 stack$ -- 0
-substring$ -- 202
-swap$ -- 59
-text.length$ -- 5
+substring$ -- 231
+swap$ -- 69
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
+type$ -- 64
 warning$ -- 0
-while$ -- 31
-width$ -- 11
-write$ -- 103
+while$ -- 36
+width$ -- 12
+write$ -- 117

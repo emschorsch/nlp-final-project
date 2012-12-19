@@ -94,7 +94,11 @@ def buildFeaturesProb( data, taskA, n ):
     featCounts, senseTotals = featureCountsB( data, n )
   for feat in featCounts.keys():
     for sentim in featCounts[feat].keys():
-      prob = featCounts[feat][sentim] / float( senseTotals[sentim] )
+    #for sentim in senseTotals.keys():
+      v = len(featCounts[feat].keys())
+      #print len(featCounts[feat].keys())
+      prob = ( featCounts[feat].get( sentim, 0) + 1 ) / \
+        float( senseTotals[sentim] + 1 )
       probDict[(feat, sentim)] = prob
   total = sum(senseTotals.values())
   for sentim in senseTotals.keys():
@@ -108,12 +112,14 @@ def naiveProb( features, probDict, sentiments ):
   probList = []
   for sense in sentiments:
     #p = 1.0 * probDict[sense]
+    ""
     if probDict[sense] > .5:
       p = 1.0
     else:
       p = 2.0 #*probDict[sense] #multiplying prob by P(s)
+      ""
     for feat in features:
-      p *= probDict.get( (feat, sense), 0.5)
+      p *= probDict.get( (feat, sense), .5)
     probList.append( (p, sense) )
   probList.sort() #defaults to sorting on the first element in tuple
   return probList[0]
