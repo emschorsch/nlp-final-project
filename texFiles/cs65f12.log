@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  20 DEC 2012 09:51
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.8)  20 DEC 2012 14:20
 entering extended mode
  %&-line parsing enabled.
 **cs65f12.tex
@@ -543,7 +543,7 @@ Missing character: There is no ; in font nullfont!
 (./cs65f12.bbl) [7] (./cs65f12.aux) ) 
 Here is how much of TeX's memory you used:
  14063 strings out of 493911
- 305973 string characters out of 1155272
+ 305973 string characters out of 1155273
  395676 words of memory out of 3000000
  17007 multiletter control sequences out of 15000+50000
  30783 words of font info for 80 fonts, out of 3000000 for 9000

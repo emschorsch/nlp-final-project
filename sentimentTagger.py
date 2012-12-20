@@ -15,6 +15,7 @@ import sys
 #some global values
 TRAINFILEA = 'trainA.txt'
 TRAINFILEB = 'trainB.txt'
+TOKENIZED = 'tokenizedTrainB.txt'
 POLARA = 4 #the index of the polarity
 POLARB = 3 #index of polarity in task B
 TWEETA = 5 #the index of the tweet itself
@@ -60,12 +61,14 @@ def featureCountsA( data, n ):
     start = int(line[2])
     end = int(line[3]) + 1
     text = " ".join( line[TWEETA].split()[start:end] )
+    #for feat in ngramList( text, n ):
     for feat in allGrams( text, n ): #+1 counts for words in range
       if feat in featCounts:
         featCounts[feat][line[POLARA]] = featCounts[feat].get(line[POLARA],0)+1
         senseTotals[line[POLARA]] = senseTotals.get(line[POLARA], 0) + 1
       else:
         featCounts[feat] = { line[POLARA] : 1 }
+        senseTotals[line[POLARA]] = senseTotals.get(line[POLARA], 0) + 1
   return featCounts, senseTotals
 
 """
@@ -75,12 +78,14 @@ def featureCountsB( data, n ):
   featCounts = {}
   senseTotals = {}
   for line in data:
+    #for feat in ngramList( line[TWEETB], n ):
     for feat in allGrams( line[TWEETB], n ): #+1 counts for words in range
       if feat in featCounts:
         featCounts[feat][line[POLARB]] = featCounts[feat].get(line[POLARB],0)+1
         senseTotals[line[POLARB]] = senseTotals.get(line[POLARB], 0) + 1
       else:
         featCounts[feat] = { line[POLARB] : 1 }
+        senseTotals[line[POLARB]] = senseTotals.get(line[POLARB], 0) + 1
   return featCounts, senseTotals
 
 """
@@ -138,26 +143,31 @@ def naiveBayes( train, test, n, task = True ):
       start = int(line[2])
       end = int(line[3]) + 1
       text = " ".join( line[TWEETA].split()[start:end] )
-      tag = naiveProb( allGrams(text , n), probDict, sentim )
+      #tag = naiveProb ( ngramList(text, n), probDict, sentim )
+      tag = naiveProb( allGrams(text, n), probDict, sentim )
     else:
+      #tag = naiveProb( ngramList(line[TWEETB], n), probDict, sentim )
       tag = naiveProb( allGrams(line[TWEETB], n), probDict, sentim )
     tags.append(tag)
   return tags
 
 """
-splits train data
+splits train data into 1/testFrac sections. Then tests on partition n,
+and trains on the rest
 """
-def crossValid( trainFrac, trainData):
+def crossValid( testFrac, trainData, n = 1):
   lines = len(trainData)
-  end = int(lines*trainFrac)
-  train = trainData[0:end]
-  test = trainData[int(.8*lines):lines]
+  end = int(lines*testFrac)*n
+  start = int(lines*testFrac)*(n-1)
+  train = trainData[0:start]+trainData[end:lines]
+  test = trainData[start:end]
   return train, test
 
 
 def main():
-  task = True
-  fileName = TRAINFILEA
+  #task = True
+  task = False
+  fileName = TOKENIZED
   if len(sys.argv) > 1:
     task = sys.argv[1]
     if task.lower() == "a":
@@ -167,10 +177,10 @@ def main():
       task = False
       fileName = TRAINFILEB
   trainFile = extractData( fileName )
-  trainData, testData = crossValid(.8, trainFile)
+  trainData, testData = crossValid(.2, trainFile, 5)
   #sentimentWords = getSentimentWords('sentimentLexicon.txt')
   #checkData(taggedData,trainData)
-  tags = naiveBayes( trainData, testData, 3, task )
+  tags = naiveBayes( trainData, testData, 1, task )
   checkListTags(tags, testData, task)
   
 if __name__=='__main__':
