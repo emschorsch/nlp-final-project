@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  19 DEC 2012 17:16
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  20 DEC 2012 09:51
 entering extended mode
  %&-line parsing enabled.
 **cs65f12.tex
@@ -523,33 +523,7 @@ LaTeX Font Info:    Try loading font information for OT1+pcr on input line 29.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 31--32
-[]\OT1/ptm/m/n/10.95 As the pop-u-lar-ity of mi-croblog-ging
- []
-
-
-Underfull \hbox (badness 1226) in paragraph at lines 31--32
-\OT1/ptm/m/n/10.95 dras-ti-cally in-creases, it is ev-i-dent that
- []
-
-
-Underfull \hbox (badness 3375) in paragraph at lines 31--32
-\OT1/ptm/m/n/10.95 users in re-gards to prod-ucts, events,
- []
-
-
-Underfull \hbox (badness 1127) in paragraph at lines 31--32
-\OT1/ptm/m/n/10.95 of clas-si-fy-ing the over-all sen-ti-ment of
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--32
-
- []
-
-Missing character: There is no ¿ in font ptmr7t!
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
@@ -557,39 +531,36 @@ Missing character: There is no ¿ in font ptmr7t!
 ]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 54.
- [2] [3] [4]
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
-Missing character: There is no ; in font nullfont!
- [5]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+ [2] [3] [4] [5]
+Underfull \vbox (badness 2828) has occurred while \output is active []
 
-
-(./cs65f12.bbl [6]) [7
-
-] (./cs65f12.aux) ) 
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no ; in font nullfont!
+ [6]
+(./cs65f12.bbl) [7] (./cs65f12.aux) ) 
 Here is how much of TeX's memory you used:
- 14068 strings out of 493911
- 306087 string characters out of 1155272
- 397676 words of memory out of 3000000
- 17012 multiletter control sequences out of 15000+50000
+ 14063 strings out of 493911
+ 305973 string characters out of 1155272
+ 395676 words of memory out of 3000000
+ 17007 multiletter control sequences out of 15000+50000
  30783 words of font info for 80 fonts, out of 3000000 for 9000
  706 hyphenation exceptions out of 8191
- 63i,19n,69p,1862b,1512s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/
-share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf
--texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fo
-nts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
-s/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pf
-b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-tex
-live/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/u
-rw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb>
-</usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on cs65f12.pdf (7 pages, 164270 bytes).
+ 63i,19n,69p,1731b,1505s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/
+base/8r.enc}</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb
+></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
+sy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb></u
+sr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-tex
+live/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
+/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri8a.pfb>
+Output written on cs65f12.pdf (7 pages, 166615 bytes).
 PDF statistics:
  78 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
