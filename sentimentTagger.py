@@ -3,8 +3,7 @@
 Implements a sentiment analyzer. The analyzer trains on annotated tweets.
 A few different methods are implemented to identify the sentiment of a new 
 tweet.
-1) A simple count of the number of sentiment types
-2) something complicated
+1) naive Bayes
 """
 from collections import defaultdict
 #from decision import *
@@ -43,7 +42,7 @@ def ngramList( text, n ):
   return ngrams
 
 """
-returns a list of all the n-grams up to k in the text
+returns a list of all the n-grams [1,...,k] in the text
 """
 def allGrams( text, k):
   ngrams = []
@@ -117,7 +116,6 @@ def naiveProb( features, probDict, sentiments ):
   probList = []
   for sense in sentiments:
     #p = 10000.0 * probDict[sense]
-    #print probDict[sense], sense
     ""
     if probDict[sense] > .5:
       p = 1.0
@@ -180,10 +178,8 @@ def main():
       fileName = TRAINFILEB
   trainFile = extractData( fileName )
   trainData, testData = crossValid(.2, trainFile, 3)
-  #sentimentWords = getSentimentWords('sentimentLexicon.txt')
-  #checkData(taggedData,trainData)
-  tags = naiveBayes( trainData, testData, 2, task )
-  checkListTags(tags, testData, task)
+  tags = naiveBayes( trainData, testData, 2, task ) #list of the guesses
+  checkListTags(tags, testData, task) #prints out accuracy and other stats
   
 if __name__=='__main__':
   main()
