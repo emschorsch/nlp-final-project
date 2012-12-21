@@ -14,7 +14,7 @@ def getScores(scores,mfp):
     for polar in mfp[word].keys():
       if polar != 'count':
         count = mfp[word][polar]
-        score = log((count+alpha)/(float(total-count)+alpha))
+        score = log((count+alpha)/(float(total-count)+1*alpha))
         wordScores.append((word,polar,score))
     
     topScore = sorted(wordScores, key=itemgetter(2), reverse=True)[0]

@@ -116,7 +116,8 @@ Returns the best guess for the "correct" sense using the naive bayes algo
 def naiveProb( features, probDict, sentiments ):
   probList = []
   for sense in sentiments:
-    #p = 1.0 * probDict[sense]
+    #p = 10000.0 * probDict[sense]
+    #print probDict[sense], sense
     ""
     if probDict[sense] > .5:
       p = 1.0
@@ -165,9 +166,10 @@ def crossValid( testFrac, trainData, n = 1):
 
 
 def main():
-  #task = True
-  task = False
-  fileName = TOKENIZED
+  task = True
+  #task = False
+  #fileName = TOKENIZED
+  fileName = TRAINFILEA
   if len(sys.argv) > 1:
     task = sys.argv[1]
     if task.lower() == "a":
@@ -177,10 +179,10 @@ def main():
       task = False
       fileName = TRAINFILEB
   trainFile = extractData( fileName )
-  trainData, testData = crossValid(.2, trainFile, 5)
+  trainData, testData = crossValid(.2, trainFile, 3)
   #sentimentWords = getSentimentWords('sentimentLexicon.txt')
   #checkData(taggedData,trainData)
-  tags = naiveBayes( trainData, testData, 1, task )
+  tags = naiveBayes( trainData, testData, 2, task )
   checkListTags(tags, testData, task)
   
 if __name__=='__main__':

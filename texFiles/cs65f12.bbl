@@ -9,6 +9,13 @@ D.~Davidov, O.~Tsur, and A.~Rappoport.
   Computational Linguistics: Posters}, pages 241--249. Association for
   Computational Linguistics.
 
+\bibitem[\protect\citename{Frank and Bouckaert}2006]{FranknaiveBayes}
+E.~Frank and R.~Bouckaert.
+\newblock 2006.
+\newblock Naive bayes for text classification with unbalanced classes.
+\newblock In {\em Proc 10th European Conference on Principles and Practice of
+  Knowledge Discovery in Databases}, pages 503--510.
+
 \bibitem[\protect\citename{Jansen \bgroup et al.\egroup
   }2009]{jansen2009twitter}
 B.J. Jansen, M.~Zhang, K.~Sobel, and A.~Chowdury.
