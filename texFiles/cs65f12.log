@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.8)  21 DEC 2012 05:39
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.8.15)  21 DEC 2012 06:02
 entering extended mode
  %&-line parsing enabled.
 **cs65f12.tex
@@ -555,7 +555,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [7] [8] (./cs65f12.bbl) [9] (./cs65f12.aux) ) 
 Here is how much of TeX's memory you used:
  14063 strings out of 493911
- 305967 string characters out of 1155273
+ 305967 string characters out of 1155272
  398675 words of memory out of 3000000
  17007 multiletter control sequences out of 15000+50000
  30783 words of font info for 80 fonts, out of 3000000 for 9000
@@ -573,7 +573,7 @@ ts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8
 exmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/t
 ype1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmri
 8a.pfb>
-Output written on cs65f12.pdf (9 pages, 176621 bytes).
+Output written on cs65f12.pdf (9 pages, 176801 bytes).
 PDF statistics:
  84 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
