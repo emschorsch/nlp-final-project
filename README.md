@@ -1,7 +1,9 @@
-nlp-final-project: by Justin Cosentino and Emanuel Schorsch
+cs65: Natural Language Processing final-project: by Justin Cosentino and Emanuel Schorsch
 =================
 
 Files pertaining to our NLP Final Project: Semantic Analysis in Twitter
+Our project was to design and test systems which given a tweet and a topic
+could extract the sentiment of the tweet about the topic.
 
 multipleTaggey.py: Contains the sentiment lexicon tagger and the mfs tagger.
         Change globals in dataParse.py in order to change the test data for
@@ -28,4 +30,4 @@ results.txt: Results for each classifier
 
 oldFiles\: Old files not being used in the classifiers
 
-texFiles\: LaTeX files used to create our paper
+texFiles\: Our paper and the LaTex code that it was compiled from.
